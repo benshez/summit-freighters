@@ -1,10 +1,8 @@
-# Vue 3 + TypeScript + Vite Boilerplate
+# Vue 3 + TypeScript + Vite App
 
 Summit Freighters
 
 ## Getting Started
-
-To get started with this boilerplate, follow these steps:
 
 
 ## Recommended IDE Setup
