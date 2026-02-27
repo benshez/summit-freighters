@@ -1,0 +1,38 @@
+@import "./base.css";
+
+
+@scope(.summit-freighters-start) to (.summit-freighters-end) {
+@import "tailwindcss";
+
+  font-family: var(--font-poppins);
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  line-height: 1.5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 840px;
+
+  /* Dark Theme Base */
+  .scheme-dark {
+      color-scheme: dark;
+      background-color: var(--color-gray-900);
+  }  
+
+  @media (min-width: 40rem) {
+    .sm\:max-w-sm {
+        max-width: var(--container-sm);
+    }
+  }
+  @media (min-width: 40rem) {
+    .sm\:w-full {
+        width: 100%;
+    }
+  }
+  @media (min-width: 40rem) {
+    .sm\:mx-auto {
+        margin-inline: auto;
+    }
+  }
+}
+
