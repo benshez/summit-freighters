@@ -1,4 +1,5 @@
 import { configuration, getCurrentUser, auth } from "@/utilities/index";
+import pages from "@/components/Form/data/data.json";
 
 import type { IWidgetOptions } from "@/interfaces";
 
@@ -38,7 +39,8 @@ class Widget {
           uid: auth.currentUser?.uid || "",
           displayName: auth.currentUser?.displayName || "",
           emailVerified: auth.currentUser?.emailVerified,
-        }
+        },
+        ...pages
       };
     }
   }

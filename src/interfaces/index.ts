@@ -17,3 +17,9 @@ export type { IUser } from "@/interfaces/user/IUser";
 export type { IUserInfo } from "@/interfaces/user/IUserInfo";
 
 export type { IWidgetOptions } from "@/interfaces/widget/IWidgetOptions";
+
+export type { IElement } from "@/interfaces/properties/IElement";
+export type { IOption } from "@/interfaces/properties/IOption";
+export type { IElementProps } from "@/interfaces/properties/IProperties";
+export type { IValidator } from "@/interfaces/properties/IValidator";
+export type { IPage } from "@/interfaces/properties/IPages";

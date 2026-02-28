@@ -19,6 +19,7 @@
         </div>
         <h3 class="text-center font-semibold text-slate-200">Or</h3>
         <form @submit.prevent="Register" class="px-8 pt-6 pb-8 mb-4 bg-slate-800 rounded">
+          <slot name="content"></slot>
           <div class="mb-4">
             <label class="block text-sm/6 font-medium" for="username">
               Email

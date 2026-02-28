@@ -1,0 +1,50 @@
+{
+  "pages": [
+    {
+      "name": "login",
+      "heading": "Login",
+      "path": "/login",
+      "requiresAuthenticaton": true,
+      "elements": [
+        {
+          "id": "email",
+          "label": "Email",
+          "component": "FormInput",
+          "value": "",
+          "helpText": "Enter your username/email.",
+          "placeholderText": "Username/Email",
+          "readonly": false,
+          "visible": true,
+          "visibleIf": [],
+          "isRequired": true,
+          "isValid": true,
+          "cssClass": "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+          "validators": [
+            {
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "id": "password",
+          "label": "Password",
+          "component": "FormInput",
+          "value": "",
+          "helpText": "Enter your password.",
+          "placeholderText": "Password",
+          "readonly": false,
+          "visible": true,
+          "visibleIf": [],
+          "isRequired": true,
+          "isValid": true,
+          "cssClass": "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+          "validators": [
+            {
+              "type": "expression"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}        
