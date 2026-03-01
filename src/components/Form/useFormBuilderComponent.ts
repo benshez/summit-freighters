@@ -1,6 +1,10 @@
+
+import { useRoute } from "vue-router";
 import type { IElement, IOption, IPage } from "@/interfaces";
+import pages from "@/components/Form/data/data.json";
 
 export const useFormBuilderComponent = () => {
+  const route = useRoute();
 
   const validate = (element: IElement): boolean => {
     let isValid = true;
@@ -17,17 +21,27 @@ export const useFormBuilderComponent = () => {
   }
 
   const findElementById = (key: string): IElement => {
-    return {} as IElement;
-    //return find(flatten(map(steps, 'elements')), { id: key }) as IElement;
+    const elements = findCurrentPageElements().elements;
+
+    return elements.find(item => {
+      return item.id === key;
+    }) as IElement;
   }
 
-  const isVisible = (element: IElement): boolean => {
+  const handleDisplay = (element: IElement): boolean => {
     const queries: Array<IOption> = element?.visibleIf || [];
 
     if (queries.length > 0) {
       queries.forEach((query: IOption) => {
         const parent: IElement = findElementById(query.key.toString())
-        element.visible = (parent.value.toLowerCase() === query.value.toString().toLowerCase())
+        let display: boolean = (parent.value.toLowerCase() === query.value.toString().toLowerCase());
+        switch (query.value.toString()) {
+          case "NO_EMPTY":
+            display = parent.value.toLowerCase() !== ""
+            break;
+        }
+
+        element.visible = display;
       });
     }
 
@@ -36,10 +50,13 @@ export const useFormBuilderComponent = () => {
 
   const handleInput = (element: IElement): void => {
     //handleValidate(emit, element)
+    const elements = findCurrentPageElements().elements;
 
-    if (element?.visibleIf && element.visibleIf.length > 1) {
-      isVisible(element)
-    }
+    elements.forEach((e) => {
+      if (e?.visibleIf && e.visibleIf.length > 0) {
+        handleDisplay(e);
+      }
+    })
 
     if (validate(element)) {
       //emit("data-input", { id: element.id, value: element.value });
@@ -51,19 +68,20 @@ export const useFormBuilderComponent = () => {
   const handleValidate = (emit: any) => {
   }
 
-  const findCurrentPageElements = (pages: Array<IPage>, pageName: string): IPage => {
-    const page: IPage = pages.find(item => {
-      return item.name === pageName;
-    }) as IPage;
+  const findCurrentPageElements = (): IPage => {
+    const key: string = route.name as string;
 
-    return page;
+
+    return pages.pages.find(item => {
+      return item.name === key;
+    }) as IPage;
   }
 
   return {
     handleInput,
     handleValidate,
     validate,
-    isVisible,
+    handleDisplay,
     findCurrentPageElements
     //findPageIndex
   }

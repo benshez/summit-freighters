@@ -16,6 +16,6 @@ import { ElementProps } from "@/components/Form/props/Props";
 
 const props = defineProps({
   ...ElementProps
-});
+})
 
 </script>

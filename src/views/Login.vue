@@ -6,27 +6,22 @@
           <LoginProviders :message="'Sign in with'" :heading="'Welcome Back!'" />
         </template>
         <template v-slot:content></template>
-        <template v-slot:footer>
+        <template v-slot:footer="elements">
           <div class="mb-6 text-center">
             <div class="mt-6">
-              <button
-                type="button"
-                @click="Login"
-                class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >
+              <button type="button" @click="Login(elements.elements)"
+                class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                 Sign In
               </button>
-              <div v-if="isLoading">
-                <Loading class="m-3 font-extrabold text-center" />
-              </div>
             </div>
           </div>
           <hr class="mb-6 border-slate-700" />
           <div class="text-center">
-            <router-link to="/register"><a
-                class="inline-block text-sm text-indigo-400 align-baseline hover:text-indigo-300">
+            <router-link to="/register">
+              <a class="inline-block text-sm text-indigo-400 align-baseline hover:text-indigo-300">
                 Create an Account!
-              </a></router-link>
+              </a>
+            </router-link>
           </div>
         </template>
       </FormBody>
@@ -34,27 +29,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useRouter } from "vue-router";
 import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
+import type { IElement } from "@/interfaces";
 
-import Loading from '@/components/Loading.vue';
-import { authStore } from "@/store";
-import { ref } from "vue";
-
-
-const emit = defineEmits(["save"])
-
-const email = ref(null);
-const password = ref(null);
-const isLoading = ref(false);
-const router = useRouter()
-
-const Login = (event: Event) => {
-  emit("save")
-  // if (event) {
-  //   event.preventDefault()
-  // }
+const Login = (args: Array<IElement>) => {
   // isLoading.value = true;
   // if (email.value && password.value) {
   //   await authStore.LoginUser(email.value, password.value);
