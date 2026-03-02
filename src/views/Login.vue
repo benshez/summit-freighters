@@ -34,6 +34,25 @@ import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import type { IElement } from "@/interfaces";
 
 const Login = (args: Array<IElement>) => {
+  let email: string = "";
+  let password: string = "";
+
+  args.forEach((element: IElement) => {
+    switch (element.id) {
+      case "email":
+        email = element.isValid ? element.value : "";
+        break;
+      case "password":
+        password = element.isValid ? element.value : "";
+        break;
+    }
+  })
+
+  if (email !== "" && password !== "") {
+    alert("yeah bruh!")
+  } else {
+    alert("invalid bruh!")
+  }
   // isLoading.value = true;
   // if (email.value && password.value) {
   //   await authStore.LoginUser(email.value, password.value);

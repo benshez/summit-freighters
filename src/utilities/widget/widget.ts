@@ -1,5 +1,5 @@
 import { configuration, getCurrentUser, auth } from "@/utilities/index";
-import pages from "@/components/Form/data/data.json";
+import { usePageData } from "@/components/Form/data/usePageData";
 
 import type { IWidgetOptions } from "@/interfaces";
 
@@ -30,6 +30,7 @@ class Widget {
         return await getCurrentUser()
       }
       getUserInfo();
+      const pages = usePageData().getData();
 
       this.options = {
         userId: auth.currentUser?.uid,
@@ -40,7 +41,7 @@ class Widget {
           displayName: auth.currentUser?.displayName || "",
           emailVerified: auth.currentUser?.emailVerified,
         },
-        ...pages
+        pages
       };
     }
   }

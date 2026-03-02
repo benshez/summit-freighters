@@ -12,7 +12,8 @@ export interface IElement {
   isValid?: boolean;
   readonly?: boolean,
   visible?: boolean,
-  visibleIf?: Array<IOption>, 
+  visibleIf?: Array<Function>
   cssClass?: string;
   validators?: Array<IValidator>;
+  type?: string;
 }

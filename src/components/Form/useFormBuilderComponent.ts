@@ -1,7 +1,7 @@
 
 import { useRoute } from "vue-router";
 import type { IElement, IOption, IPage } from "@/interfaces";
-import pages from "@/components/Form/data/data.json";
+import { usePageData } from "@/components/Form/data//usePageData";
 
 export const useFormBuilderComponent = () => {
   const route = useRoute();
@@ -29,16 +29,14 @@ export const useFormBuilderComponent = () => {
   }
 
   const handleDisplay = (element: IElement): boolean => {
-    const queries: Array<IOption> = element?.visibleIf || [];
+    const queries: Array<Function> = element?.visibleIf || [];
 
     if (queries.length > 0) {
-      queries.forEach((query: IOption) => {
-        const parent: IElement = findElementById(query.key.toString())
-        let display: boolean = (parent.value.toLowerCase() === query.value.toString().toLowerCase());
-        switch (query.value.toString()) {
-          case "NO_EMPTY":
-            display = parent.value.toLowerCase() !== ""
-            break;
+      let display: boolean = element.visible || true;
+
+      queries.forEach((query: Function) => {
+        if (typeof query === "function") {
+          if(display) display = query();
         }
 
         element.visible = display;
@@ -48,7 +46,7 @@ export const useFormBuilderComponent = () => {
     return element.visible || true
   }
 
-  const handleInput = (element: IElement): void => {
+  const handleInput = (event: Event ,element: IElement): void => {
     //handleValidate(emit, element)
     const elements = findCurrentPageElements().elements;
 
@@ -70,9 +68,9 @@ export const useFormBuilderComponent = () => {
 
   const findCurrentPageElements = (): IPage => {
     const key: string = route.name as string;
+    const pages = usePageData()
 
-
-    return pages.pages.find(item => {
+    return pages.getData().find(item => {
       return item.name === key;
     }) as IPage;
   }
