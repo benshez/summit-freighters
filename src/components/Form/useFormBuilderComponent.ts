@@ -9,7 +9,7 @@ export const useFormBuilderComponent = () => {
   const validate = (element: IElement): boolean => {
     let isValid = true;
 
-    if (element.visible && !element.readonly) {
+    if (element.isVisible && !element.isReadonly) {
       if (element.isRequired) isValid = (element.value !== "")
 
       if (isValid) {
@@ -20,41 +20,28 @@ export const useFormBuilderComponent = () => {
     return isValid
   }
 
-  const findElementById = (key: string): IElement => {
-    const elements = findCurrentPageElements().elements;
-
-    return elements.find(item => {
-      return item.id === key;
-    }) as IElement;
-  }
-
   const handleDisplay = (element: IElement): boolean => {
-    const queries: Array<Function> = element?.visibleIf || [];
+    const query = element?.isVisibleIf || [];
+    let display: boolean = element.isVisible || true;
 
-    if (queries.length > 0) {
-      let display: boolean = element.visible || true;
-
-      queries.forEach((query: Function) => {
-        if (typeof query === "function") {
-          if(display) display = query();
-        }
-
-        element.visible = display;
-      });
+    if (typeof query === "function") {
+      if (display) display = query();
     }
 
-    return element.visible || true
+    element.isVisible = display;
+
+    return element.isVisible || true
   }
 
-  const handleInput = (event: Event ,element: IElement): void => {
+  const handleInput = (event: Event, element: IElement): void => {
     //handleValidate(emit, element)
     const elements = findCurrentPageElements().elements;
 
-    elements.forEach((e) => {
-      if (e?.visibleIf && e.visibleIf.length > 0) {
-        handleDisplay(e);
-      }
-    })
+    // elements.forEach((e) => {
+    //   if (e?.visibleIf && e.visibleIf.length > 0) {
+    //     handleDisplay(e);
+    //   }
+    // })
 
     if (validate(element)) {
       //emit("data-input", { id: element.id, value: element.value });
@@ -81,6 +68,5 @@ export const useFormBuilderComponent = () => {
     validate,
     handleDisplay,
     findCurrentPageElements
-    //findPageIndex
   }
 }

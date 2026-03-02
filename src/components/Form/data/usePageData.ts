@@ -1,8 +1,6 @@
-import { useRoute } from "vue-router";
 import type { IPage, IElement } from "@/interfaces";
 
 export const usePageData = () => {
-  const route = useRoute();
   const Pages = [
     {
       "name": "login",
@@ -17,18 +15,19 @@ export const usePageData = () => {
           "value": "",
           "helpText": "Enter your username/email.",
           "placeholderText": "Username/Email",
-          "readonly": false,
-          "visible": true,
-          "visibleIf": [],
+          "isReadonly": false,
+          "isVisible": true,
+          "isVisibleIf": [],
           "isRequired": true,
           "isValid": true,
+          "isValidIf": (): boolean => {
+            const email: IElement = getElementsById("login", "email");
+            email.isValid = email.value !== ""; 
+
+            return email.isValid;
+          },
           "type": "email",
-          "cssClass": "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
-          "validators": [
-            {
-              "type": "expression"
-            }
-          ]
+          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
         },
         {
           "id": "password",
@@ -37,25 +36,23 @@ export const usePageData = () => {
           "value": "",
           "helpText": "Enter your password.",
           "placeholderText": "Password",
-          "readonly": false,
-          "visible": true,
-          "visibleIf": [(): boolean => {
-            const element: IElement = getElementsById("email");
-            return element.value !== "";
-          }, (): boolean => {
-            const element: IElement = getElementsById("email");
-            return element.isValid || true;
+          "isReadonly": false,
+          "isVisible": true,
+          "isVisibleIf": (): boolean => {
+            const email: IElement = getElementsById("login", "email");
+            const query = email?.isValidIf || null;
+            let visible: boolean = true;
+
+            if (typeof query === "function") {
+              if (visible) visible = query();
+            }
+
+            return  visible;
           },
-          ],
           "isRequired": true,
           "isValid": true,
           "type": "password",
-          "cssClass": "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
-          "validators": [
-            {
-              "type": "expression"
-            }
-          ]
+          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
         }
       ]
     }
@@ -65,25 +62,23 @@ export const usePageData = () => {
     return Pages;
   }
 
-  const getDataForCurrentPage = () => {
-    const key: string = route.name as string;
-
+  const getElementsForCurrentPage = (pageName: string,) => {
     return getData().find(item => {
-      return item.name === key;
+      return item.name === pageName;
     }) as IPage;
   }
 
-  const getElementsById = (key: string): IElement => {
-    const elements = getDataForCurrentPage().elements;
+  const getElementsById = (pageName: string, elementId: string): IElement => {
+    const elements = getElementsForCurrentPage(pageName).elements;
 
     return elements.find(item => {
-      return item.id === key;
+      return item.id === elementId;
     }) as IElement;
   }
 
   return {
     getData,
-    getDataForCurrentPage,
+    getElementsForCurrentPage,
     getElementsById
   }
 }

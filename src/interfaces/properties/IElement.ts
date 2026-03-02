@@ -9,11 +9,11 @@ export interface IElement {
   placeholderText?: string;
   options?: Array<IOption>;
   isRequired?: boolean;
-  isValid?: boolean;
-  readonly?: boolean,
-  visible?: boolean,
-  visibleIf?: Array<Function>
+  isValid?:  boolean;
+  isValidIf?: Function;
+  isReadonly?: boolean,
+  isVisible?: boolean,
+  isVisibleIf?: Function,
   cssClass?: string;
-  validators?: Array<IValidator>;
   type?: string;
 }
