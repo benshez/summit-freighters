@@ -34,8 +34,6 @@ import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import type { IElement } from "@/interfaces";
 import { authStore } from "@/store";
 
-
-
 const Register = async (args: Array<IElement>) => {
   let email: string = "";
   let password: string = "";
@@ -52,9 +50,12 @@ const Register = async (args: Array<IElement>) => {
   })
 
   if (email !== "" && password !== "") {
+    try {
     await authStore.CreateUser(email, password);
     await authStore.SendVerificationEmail();
-    //await authStore.UpdateUserProfile({ displayName: email.value || "" });
+    } catch(e) {
+      alert(e)
+    }
   }
 }
 

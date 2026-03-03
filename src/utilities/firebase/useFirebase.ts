@@ -13,6 +13,8 @@ import {
   onAuthStateChanged,
   signOut,
   type Auth
+  ,
+  type User
 } from "firebase/auth";
 import { configuration } from "@/utilities";
 
@@ -29,14 +31,20 @@ export const useFirebase = () => {
     await signOut(auth);
   }
 
-  const getCurrentUser = () => {
-    return new Promise((resolve, reject) => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        unsubscribe();
-        resolve(user);
-      }, reject);
-    });
-  }
+  // const getCurrentUser = (): Promise<User> => {
+  //   return new Promise((resolve, reject) => {
+  //     const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //       unsubscribe();
+  //       resolve(user as User);
+  //     }, reject);
+  //   });
+  // }
+
+  const getCurrentUser = async (): Promise<User | null> => {
+    const auth = getAuth();
+    await auth.authStateReady();
+    return auth.currentUser;
+  };
 
   return {
     app,
@@ -47,4 +55,3 @@ export const useFirebase = () => {
     getCurrentUser
   }
 }
-//export { firebaseApp, auth, app, loginUser, logoutUser, getCurrentUser };

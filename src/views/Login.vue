@@ -33,7 +33,7 @@ import { useRouter } from "vue-router";
 import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import type { IElement } from "@/interfaces";
-import { useFirebase} from "@/utilities";
+import { useFirebase } from "@/utilities";
 
 const router = useRouter();
 const db = useFirebase();
@@ -54,9 +54,11 @@ const Login = async (args: Array<IElement>) => {
 
   if (email !== "" && password !== "") {
     db.loginUser(email, password);
-    const user = await useFirebase().getCurrentUser();
-    if(user) router.push("/edit");
-  } 
+    useFirebase().getCurrentUser();
+    useFirebase().auth.onAuthStateChanged((user) => {
+      if (user && user.emailVerified) router.push("/edit");
+    });
+  }
 }
 
 </script>

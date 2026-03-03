@@ -7,7 +7,8 @@
             class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
             <div class="flex flex-row items-center justify-between p-4">
               <a href="#"
-                class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Summit Freighters</a>
+                class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Summit
+                Freighters</a>
             </div>
             <nav class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
               <div class="relative inline-block">
@@ -32,11 +33,18 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { authStore } from "@/store";
+import { useRouter } from "vue-router";
+import { useFirebase } from "@/utilities";
 
+const db = useFirebase();
+const router = useRouter();
 const image = ref(null);
 
 const Logout = async () => {
-  await authStore.LogoutUser();
+  db.logoutUser();
+  await useFirebase().getCurrentUser();
+  useFirebase().auth.onAuthStateChanged((user) => {
+    if (!user || !user.emailVerified) router.push("/login");
+  })
 }
 </script>
