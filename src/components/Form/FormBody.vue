@@ -8,13 +8,15 @@
     </div>
 </template>
 <script lang="ts" setup>
+import { useRoute } from "vue-router";
 import { inject, reactive } from "vue";
 import FormBuilder from "@/components/Form/FormBuilder.vue";
 import type { IWidgetOptions } from "@/interfaces";
-import { useFormBuilderComponent } from "@/components/Form/useFormBuilderComponent";
+import { usePageData } from "@/components/Form/data/usePageData";
 
+const route = useRoute();
 const options = inject("options") as IWidgetOptions;
-const { findCurrentPageElements } = useFormBuilderComponent();
-const elements = reactive(findCurrentPageElements().elements)
+const { getElementsForCurrentPage } = usePageData();
+const elements = reactive(getElementsForCurrentPage(route.name as string).elements);
 
 </script>

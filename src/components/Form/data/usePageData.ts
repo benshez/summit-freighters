@@ -100,7 +100,7 @@ export const usePageData = () => {
             const isValid = password.value !== "";
 
             return isValid;
-          },          
+          },
           "type": "password",
           "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
         },
@@ -122,7 +122,7 @@ export const usePageData = () => {
             const isValid = confirmPassword.value !== "" && confirmPassword.value === password.value;
 
             return isValid;
-          },            
+          },
           "type": "password",
           "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
         }
@@ -134,7 +134,7 @@ export const usePageData = () => {
     return Pages;
   }
 
-  const getElementsForCurrentPage = (pageName: string,) => {
+  const getElementsForCurrentPage = (pageName: string,): IPage => {
     return getData().find(item => {
       return item.name === pageName;
     }) as IPage;
@@ -148,9 +148,60 @@ export const usePageData = () => {
     }) as IElement;
   }
 
+  const handleValidate = (event: Event, element: IElement) => {
+    const query = element?.isValidIf || [];
+    let isValid: boolean = true;
+
+    if (typeof query === "function") {
+      if (isValid) isValid = query();
+    }
+
+    element.isValid = isValid;
+  }
+
+  const validate = (element: IElement): boolean => {
+    let isValid = true;
+
+    if (element.isVisible && !element.isReadonly) {
+      if (element.isRequired) isValid = (element.value !== "")
+
+      if (isValid) {
+
+      }
+    }
+
+    return isValid
+  }
+
+  const handleDisplay = (element: IElement): boolean => {
+    const query = element?.isVisibleIf || [];
+    let display: boolean = element.isVisible || true;
+
+    if (typeof query === "function") {
+      if (display) display = query();
+    }
+
+    element.isVisible = display;
+
+    return element.isVisible || true
+  }
+
+  const handleInput = (route: string, event: Event, element: IElement): void => {
+    handleValidate(event, element);
+    const elements = getElementsForCurrentPage(route).elements;
+
+    if (validate(element)) {
+      //emit("data-input", { id: element.id, value: element.value });
+    } else {
+      console.log('Not valid!')
+    }
+  }  
+
   return {
     getData,
     getElementsForCurrentPage,
-    getElementsById
+    getElementsById,
+    handleInput,
+    handleDisplay
   }
 }

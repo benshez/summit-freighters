@@ -6,10 +6,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
 import { useRoute } from "vue-router";
 import FormInput from "@components/Form/FormInput.vue";
-import { useFormBuilderComponent } from "@/components/Form/useFormBuilderComponent";
+import { usePageData } from "@/components/Form/data/usePageData";
 import type { IElement } from "@/interfaces";
 
 const props = defineProps({
@@ -17,7 +16,7 @@ const props = defineProps({
 });
 
 const emitter = defineEmits(["input", "validate"]);
-const { handleValidate, handleDisplay } = useFormBuilderComponent();
+const { handleDisplay } = usePageData();
 const route = useRoute();
 
 const comp = (element: IElement): any => {
