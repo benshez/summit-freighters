@@ -4,6 +4,7 @@
     <template v-slot:component>
       <input v-if="!element.isReadonly" v-model="element.value" :id="element.id" :name="element.id" :type="element.type"
         :class="element.cssClass" :placeholder="element.placeholderText" @input="handleInput($event, element)" />
+        {{ element.isValid }}
     </template>
     <template v-slot:help></template>
   </FormElement>

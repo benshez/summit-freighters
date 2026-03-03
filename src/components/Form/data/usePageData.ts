@@ -22,7 +22,7 @@ export const usePageData = () => {
           "isValid": true,
           "isValidIf": (): boolean => {
             const email: IElement = getElementsById("login", "email");
-            email.isValid = email.value !== ""; 
+            email.isValid = email.value !== "";
 
             return email.isValid;
           },
@@ -47,10 +47,82 @@ export const usePageData = () => {
               if (visible) visible = query();
             }
 
-            return  visible;
+            return visible;
           },
           "isRequired": true,
           "isValid": true,
+          "type": "password",
+          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+        }
+      ]
+    },
+    {
+      "name": "register",
+      "heading": "Register",
+      "path": "/register",
+      "requiresAuthenticaton": true,
+      "elements": [
+        {
+          "id": "email",
+          "label": "Email",
+          "component": "FormInput",
+          "value": "",
+          "helpText": "Enter your username/email.",
+          "placeholderText": "Username/Email",
+          "isReadonly": false,
+          "isVisible": true,
+          "isVisibleIf": [],
+          "isRequired": true,
+          "isValid": true,
+          "isValidIf": (): boolean => {
+            const email: IElement = getElementsById("register", "email");
+            email.isValid = email.value !== "";
+
+            return email.isValid;
+          },
+          "type": "email",
+          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+        },
+        {
+          "id": "password",
+          "label": "Password",
+          "component": "FormInput",
+          "value": "",
+          "helpText": "Enter your password.",
+          "placeholderText": "Password",
+          "isReadonly": false,
+          "isVisible": true,
+          "isVisibleIf": null,
+          "isRequired": true,
+          "isValid": true,
+          "isValidIf": (): boolean => {
+            const password: IElement = getElementsById("register", "password");
+            const isValid = password.value !== "";
+
+            return isValid;
+          },          
+          "type": "password",
+          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+        },
+        {
+          "id": "confirm_password",
+          "label": "Confirm Password",
+          "component": "FormInput",
+          "value": "",
+          "helpText": "Confirm your password.",
+          "placeholderText": "Confirm your password",
+          "isReadonly": false,
+          "isVisible": true,
+          "isVisibleIf": null,
+          "isRequired": true,
+          "isValid": true,
+          "isValidIf": (): boolean => {
+            const password: IElement = getElementsById("register", "password");
+            const confirmPassword: IElement = getElementsById("register", "confirm_password");
+            const isValid = confirmPassword.value !== "" && confirmPassword.value === password.value;
+
+            return isValid;
+          },            
           "type": "password",
           "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
         }

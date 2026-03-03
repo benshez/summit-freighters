@@ -29,11 +29,15 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import type { IElement } from "@/interfaces";
+import { useFirebase} from "@/utilities";
 
-const Login = (args: Array<IElement>) => {
+const router = useRouter();
+const db = useFirebase();
+const Login = async (args: Array<IElement>) => {
   let email: string = "";
   let password: string = "";
 
@@ -49,16 +53,10 @@ const Login = (args: Array<IElement>) => {
   })
 
   if (email !== "" && password !== "") {
-    alert("yeah bruh!")
-  } else {
-    alert("invalid bruh!")
-  }
-  // isLoading.value = true;
-  // if (email.value && password.value) {
-  //   await authStore.LoginUser(email.value, password.value);
-  //   isLoading.value = false;
-  //   router.push("/edit");
-  // }
+    db.loginUser(email, password);
+    const user = await useFirebase().getCurrentUser();
+    if(user) router.push("/edit");
+  } 
 }
 
 </script>

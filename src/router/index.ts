@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "@/router/routes";
-import { configuration, getCurrentUser } from "@/utilities";
+import { configuration, useFirebase} from "@/utilities";
 
 const DEFAULT_TITLE = "";
 
@@ -12,7 +12,7 @@ const router = createRouter({
 router.afterEach(async (to, from) => {
   document.title = to.meta.title || DEFAULT_TITLE as any;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  if (requiresAuth && !await getCurrentUser()) {
+  if (requiresAuth && !await useFirebase().getCurrentUser()) {
     return "/login";
   }
 })

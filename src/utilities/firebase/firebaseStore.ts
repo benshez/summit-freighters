@@ -5,7 +5,7 @@ import {
   QueryDocumentSnapshot,
   collection
 } from "firebase/firestore";
-import { firebaseApp } from "@/utilities";
+import { useFirebase } from "@/utilities";
 import { type IUser } from "@/interfaces";
 
 const converter = <T>(): FirestoreDataConverter<T> => ({
@@ -14,7 +14,7 @@ const converter = <T>(): FirestoreDataConverter<T> => ({
     snapshot.data() as T
 });
 
-const dataPoint = <T>(path: string) => collection(firebaseApp, path).withConverter(converter<T>());
+const dataPoint = <T>(path: string) => collection(useFirebase().firebaseApp, path).withConverter(converter<T>());
 
 const firebaseStore = {
   user: dataPoint<IUser>("user")

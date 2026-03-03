@@ -34,7 +34,7 @@ export const useFormBuilderComponent = () => {
   }
 
   const handleInput = (event: Event, element: IElement): void => {
-    //handleValidate(emit, element)
+    handleValidate(event, element);
     const elements = findCurrentPageElements().elements;
 
     // elements.forEach((e) => {
@@ -50,7 +50,15 @@ export const useFormBuilderComponent = () => {
     }
   }
 
-  const handleValidate = (emit: any) => {
+  const handleValidate = (event: Event, element: IElement) => {
+    const query = element?.isValidIf || [];
+    let isValid: boolean = true;
+
+    if (typeof query === "function") {
+       if(isValid) isValid = query();
+    }
+
+    element.isValid = isValid;
   }
 
   const findCurrentPageElements = (): IPage => {

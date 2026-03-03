@@ -11,7 +11,7 @@ import {
 
   signOut
 } from "firebase/auth";
-import { firebaseStore, auth } from "@/utilities";
+import { useFirebase } from "@/utilities";
 import { appStore } from "@/utilities";
 import { authState } from "@/store";
 import { configuration } from "@/utilities";
@@ -27,7 +27,7 @@ class AuthStore extends appStore<IAuthState> {
 
   GetUserInfo = async () => {
     return new Promise((resolve, reject) => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
+      const unsubscribe = onAuthStateChanged(useFirebase().auth, (user) => {
         unsubscribe();
         resolve(user);
       }, reject);
@@ -36,13 +36,13 @@ class AuthStore extends appStore<IAuthState> {
   }
 
   CreateUser = async (email: string, password: string) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(useFirebase().auth, email, password);
 
     this.UpdateUserInfo();
   }
 
   SendVerificationEmail = async () => {
-    const user = auth?.currentUser;
+    const user = useFirebase().auth?.currentUser;
 
     if (user) {
       await sendEmailVerification(user);
@@ -50,7 +50,7 @@ class AuthStore extends appStore<IAuthState> {
   }
 
   UpdateUserPassword = async (newPassword: string) => {
-    const user = auth?.currentUser;
+    const user = useFirebase().auth?.currentUser;
 
     if (user) {
       await updatePassword(user, newPassword);
@@ -58,7 +58,7 @@ class AuthStore extends appStore<IAuthState> {
   }
 
   ResetUserPassword = async (email: string) => {
-    const user = auth.currentUser;
+    const user = useFirebase().auth.currentUser;
     const password = this.GenerateSecureRandomPassword();
 
     if (user) {
@@ -68,11 +68,11 @@ class AuthStore extends appStore<IAuthState> {
   }
 
   SendUserPasswordResetEmail = async (email: string) => {
-    await sendPasswordResetEmail(auth, email);
+    await sendPasswordResetEmail(useFirebase().auth, email);
   }
 
   UpdateUserEmail = async (newEmail: string) => {
-    const user = auth?.currentUser;
+    const user = useFirebase().auth?.currentUser;
 
     if (user) {
       await updateEmail(user, newEmail);
@@ -81,7 +81,7 @@ class AuthStore extends appStore<IAuthState> {
   }
 
   UpdateUserProfile = async (profile: {}) => {
-    const user = auth?.currentUser;
+    const user = useFirebase().auth?.currentUser;
 
     if (user) {
       await updateProfile(user, profile);
@@ -104,13 +104,13 @@ class AuthStore extends appStore<IAuthState> {
   }
 
   LoginUser = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(useFirebase().auth, email, password);
     await this.UpdateUserInfo();
   }
 
   LogoutUser = async () => {
     try {
-      await signOut(auth);
+      await signOut(useFirebase().auth);
       this.state.userInfo = {} as IUser;
       this.state.isAuthenticated = false;
       this.ClearState();
@@ -120,7 +120,7 @@ class AuthStore extends appStore<IAuthState> {
   }
 
   UpdateUserInfo = async () => {
-    const user = auth?.currentUser;
+    const user = useFirebase().auth?.currentUser;
 
     if (user) {
       authStore.Init();
