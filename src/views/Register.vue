@@ -15,7 +15,7 @@
               </button>
             </div>
           </div>
-          <hr class="mb-6 border-slate-700" />
+          <hr class="mb-6 border-b" />
           <div class="text-center">
             <router-link to="/login"><a
                 class="inline-block text-sm text-indigo-400 align-baseline hover:text-indigo-300">

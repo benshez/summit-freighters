@@ -27,7 +27,8 @@ export const usePageData = () => {
             return email.isValid;
           },
           "type": "email",
-          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+          "cssClass": "w-full px-3 py-2 mb-2 mt-2 leading-tight border rounded appearance-none focus:outline-none focus:shadow-outline border",
+          "labelIcon": "fas fa-envelope mr-2 text-sm"
         },
         {
           "id": "password",
@@ -52,7 +53,7 @@ export const usePageData = () => {
           "isRequired": true,
           "isValid": true,
           "type": "password",
-          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+          "cssClass": "w-full px-3 py-2 mb-2 mt-2 leading-tight border rounded appearance-none focus:outline-none focus:shadow-outline border",
         }
       ]
     },
@@ -81,7 +82,7 @@ export const usePageData = () => {
             return email.isValid;
           },
           "type": "email",
-          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+          "cssClass": "w-full px-3 py-2 mb-2 mt-2 leading-tight border rounded appearance-none focus:outline-none focus:shadow-outline border",
         },
         {
           "id": "password",
@@ -102,7 +103,7 @@ export const usePageData = () => {
             return isValid;
           },
           "type": "password",
-          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+          "cssClass": "w-full px-3 py-2 mb-2 mt-2 leading-tight border rounded appearance-none focus:outline-none focus:shadow-outline border",
         },
         {
           "id": "confirm_password",
@@ -124,7 +125,7 @@ export const usePageData = () => {
             return isValid;
           },
           "type": "password",
-          "cssClass": "w-full px-3 py-2 mb-1 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+          "cssClass": "w-full px-3 py-2 mb-2 mt-2 leading-tight border rounded appearance-none focus:outline-none focus:shadow-outline border",
         }
       ]
     }

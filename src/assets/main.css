@@ -1,23 +1,23 @@
-@import "./base.css";
+@import "./theme.css";
 
 
 @scope(.summit-freighters-start) to (.summit-freighters-end) {
 @import "tailwindcss";
 
-  font-family: var(--font-poppins);
+  font-family: var(--font-sans);
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
-  line-height: 1.5;
+  line-height: var(--text-sm--line-height);
   height: 100%;
   display: flex;
   flex-direction: column;
   min-height: 840px;
-
-  /* Dark Theme Base */
-  .scheme-dark {
-      color-scheme: dark;
-      background-color: var(--color-gray-900);
-  }  
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-normal);
+  background-color: var(--color-white);
+  color: var(--color-gray-800);
+  letter-spacing: var(--tracking-tight);
+  margin-top: calc(var(--spacing) * 15);
 
   @media (min-width: 40rem) {
     .sm\:max-w-sm {
@@ -34,5 +34,20 @@
         margin-inline: auto;
     }
   }
+
+  .border-b {
+    border-width: 0;
+    border-bottom-color: var(--color-gray-300);
+    border-bottom-width: var(--tracking-wider);
+  }
+  .border {
+    border-color: var(--color-gray-300);
+    border-width: var(--tracking-wider);  
+  }
+
+  path {
+    fill: var(--color-indigo-500);
+  }
+  
 }
 

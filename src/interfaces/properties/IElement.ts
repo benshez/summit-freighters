@@ -16,4 +16,5 @@ export interface IElement {
   isVisibleIf?: Function,
   cssClass?: string;
   type?: string;
+  labelIcon?: string;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-full flex-1 flex-col px-6 py-8 lg:px-8">
+  <div class="flex min-h-full flex-1 flex-col px-6 py-8 lg:px-">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <FormBody>
         <template v-slot:header>
@@ -15,7 +15,7 @@
               </button>
             </div>
           </div>
-          <hr class="mb-6 border-slate-700" />
+          <hr class="mb-6 border-b" />
           <div class="text-center">
             <router-link to="/register">
               <a class="inline-block text-sm text-indigo-400 align-baseline hover:text-indigo-300">
