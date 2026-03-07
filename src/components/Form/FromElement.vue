@@ -7,7 +7,7 @@
       <label v-if="element.isReadonly">{{ element.value }}</label>
     </slot>
     <slot name="help">
-      <small :id="`${element.id}-help`" v-if="element.helpText">{{ element.helpText }}</small>
+      <p :id="`${element.id}-help`" v-if="element.helpText && !element.isValid" class="mt-1 text-xs text-fg-danger-strong">{{ element.helpText }}</p>
     </slot>
   </div>
 </template>

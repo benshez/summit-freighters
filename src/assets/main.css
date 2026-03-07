@@ -45,9 +45,12 @@
     border-width: var(--tracking-wider);  
   }
 
-  path {
-    fill: var(--color-indigo-500);
+  .text-fg-danger-strong {
+    color: var(--color-red-600);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-xs);
   }
+  
   
 }
 

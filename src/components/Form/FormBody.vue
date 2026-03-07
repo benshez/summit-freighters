@@ -9,14 +9,15 @@
 </template>
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
-import { inject, reactive } from "vue";
+import { inject, toRefs } from "vue";
 import FormBuilder from "@/components/Form/FormBuilder.vue";
-import type { IWidgetOptions } from "@/interfaces";
-import { usePageData } from "@/components/Form/data/usePageData";
+import type { IPage, IWidgetOptions } from "@/interfaces";
+import { useFormStore } from "@/store";
 
+const formStore = useFormStore();
 const route = useRoute();
 const options = inject("options") as IWidgetOptions;
-const { getElementsForCurrentPage } = usePageData();
-const elements = reactive(getElementsForCurrentPage(route.name as string).elements);
+formStore.getElements(route.name as string)
+const { elements } = toRefs(formStore);
 
 </script>
