@@ -25,7 +25,8 @@
     "@fortawesome/fontawesome-free": "^7.2.0",
     "firebase": "^12.9.0",
     "expiry-localstorage": "^1.0.0",
-    "pinia": "^3.0.4"
+    "pinia": "^3.0.4",
+    "vue-mapbox-ts": "^0.9.10"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
