@@ -10,7 +10,6 @@ import {
 import {
   getAuth,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
   type Auth
   ,
@@ -30,15 +29,6 @@ export const useFirebase = () => {
   const logoutUser = async () => {
     await signOut(auth);
   }
-
-  // const getCurrentUser = (): Promise<User> => {
-  //   return new Promise((resolve, reject) => {
-  //     const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //       unsubscribe();
-  //       resolve(user as User);
-  //     }, reject);
-  //   });
-  // }
 
   const getCurrentUser = async (): Promise<User | null> => {
     const auth = getAuth();

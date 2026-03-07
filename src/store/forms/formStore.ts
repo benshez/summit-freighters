@@ -24,40 +24,43 @@ export const useFormStore = defineStore("form", {
 
       this.$state.elementsState = elements as Array<IElement>;
     },
+    getElement(key: string): IElement {
+      return this.$state.elementsState
+        .find((el) => { return el.id === key }) as IElement
+    },
     updateElementState(key: string, options: { key: string, value: unknown }) {
-      this.$state.elementsState
-        .find((el) => {
-          if (el.id === key) {
-            switch (options.key) {
-              case "value":
-                el.value = options.value as string;
-                break;
-              case "isValid":
-                el.isValid = options.value as boolean;
-                break;
-            }
-          }
-        }
-        ) as unknown as IElement;
+      const element: IElement = this.getElement(key);
+
+      switch (options.key) {
+        case "value":
+          element.value = options.value as string;
+          break;
+        case "isValid":
+          element.isValid = options.value as boolean;
+          break;
+        case "isVisible":
+          element.isVisible = options.value as boolean;
+          break;
+      }
     },
     handleInput(key: string) {
+      this.handleDisplay(key);
       this.handleValidate(key);
     },
     handleValidate(key: string) {
-      const query: Function = this.$state.elementsState
-        .find((el) => {
-          if (el.id === key) {
-             return el.isValidIf?.apply as Function;
-          }
-        }) as unknown as Function || undefined;
+      const element: IElement = this.getElement(key);
 
-      let isValid: boolean = true;
+      const isValid: boolean = element?.isValidIf?.();
 
-      if (query && typeof query === "function") {
-        if (isValid) isValid = query();
-      }
+      this.updateElementState(key, { key: "isValid", value: isValid });
+    },
+    handleDisplay(key: string) {
+    const element: IElement = this.getElement(key);
+    let display: boolean = element.isVisible || true;
 
-      this.updateElementState(key, { key: key, value: isValid });
+    this.handleValidate(key);
+
+    this.updateElementState(key, {key: "isVisible", value: display});
     }
   },
   getters: {

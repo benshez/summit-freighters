@@ -1,6 +1,5 @@
 //import { configuration, getCurrentUser, auth } from "@/utilities/index";
 import { useFirebase, configuration } from "@/utilities"
-import { usePageData } from "@/components/Form/data/usePageData";
 
 import type { IWidgetOptions } from "@/interfaces";
 
@@ -32,7 +31,7 @@ class Widget {
         return await db.getCurrentUser()
       }
       getUserInfo();
-      const pages = usePageData().getData();
+      //const pages = usePageData().getData();
 
       this.options = {
         userId: db.auth.currentUser?.uid,
@@ -43,7 +42,7 @@ class Widget {
           displayName: db.auth.currentUser?.displayName || "",
           emailVerified: db.auth.currentUser?.emailVerified,
         },
-        pages
+        //pages
       };
     }
   }

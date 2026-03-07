@@ -8,7 +8,7 @@
           <div class="relative profile-pic-upload mb-4">
             <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
               <img id="profileImage"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                :src="currentUser.photoURL"
                 alt="Profile" class="w-full h-full object-cover">
             </div>
             <div
@@ -19,7 +19,9 @@
               <input type="file" id="fileInput" class="hidden" accept="image/*">
             </div>
           </div>
-          <h2 class="text-xl font-semibold text-gray-800"></h2>
+          <h2 class="text-xl font-semibold text-gray-800">
+            {{ currentUser.displayName }}
+          </h2>
           <p class="text-gray-500 text-sm">Software Developer</p>
 
           <button id="changePhotoBtn"
@@ -64,78 +66,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, reactive, onBeforeUpdate, onMounted } from "vue"
-import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue"
 import FormBody from "@/components/Form/FormBody.vue";;
 import { useFirebase } from "@/utilities";
-import type { IUser, IElement } from "@/interfaces";
 import { useFormStore } from "@/store";
 
-// const { getElementsForCurrentPage, getElementsById } = usePageData();
-// const elements = reactive(getElementsForCurrentPage("edit").elements);
-// const email: IElement = reactive(getElementsById("edit", "email"));
-// const name: IElement = reactive(getElementsById("edit", "name"));
-// const password: IElement = reactive(getElementsById("edit", "password"));
-
 const formStore = useFormStore();
-
-onMounted(() => {
-  formStore.updateElementState("name", { key: "value", value: "Ben" });
-})
-
-
-
-// const router = useRouter();
-// const db = useFirebase();
-
-// const user = ref({
-//   uid: "",
-//   email: "",
-//   displayName: "",
-// })
-// const profileImage = ref("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80");
-// const userModel = usePageData();
-
-// // Methods
-// const handleImageUpload = (event: any) => {
-//   const file = event.target.files[0]
-//   if (file) {
-//     const reader = new FileReader()
-//     reader.onload = (e) => {
-//       //profileImage.value = e.target.result
-//     }
-//     reader.readAsDataURL(file)
-//   }
-// }
-
-// onBeforeUpdate(async () => {
-
-//   const t = await useFirebase().getCurrentUser();
-//   user.value.displayName = t?.displayName || ""
-
-//   //userModel.setEditRouteModelValues(t as unknown as IUser)
-
-//   email.value = t?.email || "";
-//   name.value = t?.displayName || "";
-
-//   const updatedElements: Array<IElement> = [
-//     email,
-//     name,
-//     password
-//   ]
-
-//   Object.assign(elements, updatedElements);
-// })
-
+const currentUser = ref({
+  photoURL: "",
+  displayName: ""
+});
+  
 const saveProfile = (e: any) => {
   // Send profile data to server
   console.log("Saving profile:", e)
   // Show success message
 }
 
-// const deleteAccount = () => {
-//   if (confirm("Are you sure you want to delete your account?")) {
-//     // Delete account logic
-//   }
-// }
+onMounted(async () => {
+  const user = await useFirebase().getCurrentUser();
+  formStore.updateElementState("email", { key: "value", value: user?.email });
+  formStore.updateElementState("name", { key: "value", value: user?.displayName });
+  currentUser.value = {
+    photoURL: user?.photoURL || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    displayName: user?.displayName || ""
+  };
+})
+
 </script>
