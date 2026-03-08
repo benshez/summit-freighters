@@ -62,6 +62,16 @@ const routes = [
       title: "Summit Freighters - Register",
     },
   },
+ {
+    path: "/map",
+    name: "map",
+    component: () =>
+      import(/* webpackChunkName: "register" */ "@/views/Map.vue"),
+    meta: {
+      requiresAuth: true,
+      title: "Summit Freighters - Map",
+    },
+  },  
 ];
 
 

@@ -6,7 +6,8 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "eslint.config.*"
+    "eslint.config.*",
+    "mapbox-gl-draw.d.ts"
   ],
   "compilerOptions": {
     "noEmit": true,

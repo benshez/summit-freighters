@@ -9,6 +9,7 @@ class appConfiguration implements IConfig {
   AppBaseRoute?: string | undefined;
   CorsDomains: string | undefined;
   AccessToken: string | undefined;
+  MapboxToken?: string | undefined;
   IsProductionEnvironment: boolean | false;
   IsDevelopmentEnvironment: boolean | false;
   ApiRequestConfig: AxiosRequestConfig | undefined;
@@ -22,6 +23,7 @@ class appConfiguration implements IConfig {
     this.ApiBaseUrl = import.meta.env.VITE_APP_API_BASE_URL;
     this.CorsDomains = import.meta.env.VITE_APP_ACCESS_CONTROL_ALLOW_ORIGINS;
     this.AppBaseRoute = import.meta.env.VITE_APP_BASE_ROUTE;
+    this.MapboxToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
     this.FirebaseConfig = {
       apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
       authDomain: import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN,
@@ -60,6 +62,10 @@ class appConfiguration implements IConfig {
     if (token && token !== "") {
       Object.assign(this.ApiRequestConfig?.headers as object, { "Authorization": `Bearer ${token}` });
     }
+  }
+
+  GetMapboxToken = () => {
+    return this.MapboxToken
   }
 
 }

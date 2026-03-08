@@ -8,9 +8,10 @@ export interface IConfig {
   AppBaseRoute?: string;
   AorsDomains?: string;
   AccessToken?: string;
+  MapboxToken?: string;
   IsProductionEnvironment: boolean;
   IsDevelopmentEnvironment: boolean;
-  ApiRequestConfig?: AxiosRequestConfig
-  FirebaseConfig? : FirebaseOptions
+  ApiRequestConfig?: AxiosRequestConfig;
+  FirebaseConfig? : FirebaseOptions;
   GetApiHeaderConfiguration(): object;
 }
