@@ -1,5 +1,22 @@
 <template>
-  <div ref="mapContainer" class="map-container"></div>
+  <div class="flex min-h-full flex-1 flex-col justify-center">
+    <div class="flex flex-col lg:flex-row gap-8 px-6 py-8 lg:px-8">
+
+      <div class="lg:w-1/3">
+        <div class="bg-white shadow-sm p-6 mb-4">
+          <div class="flex flex-col items-center">
+            <p></p>
+            {{ dist }}
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-2/3">
+        <div class="bg-white shadow-sm p-6">
+          <div ref="mapContainer" class="map-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -10,44 +27,61 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { distance, lineString } from "@turf/turf";
 import { configuration } from "@/utilities";
+import { mapboxSearch } from "@/api";
+import type { MapboxDirections } from "@/interfaces";
 
-let mapbox: unknown;
-let map: mapboxgl.Map
+const layerId: string = "standard";
 const mapContainer = ref<HTMLElement | null>(null);
+const dist = ref<string>("");
+let mapbox: unknown;
+let map: mapboxgl.Map;
 
 const MapboxInit = () => {
   if (mapbox) return;
 
-  mapboxgl.accessToken = configuration.GetMapboxToken();
-  mapbox = mapboxgl;
+  if (navigator.geolocation) {
+    mapboxgl.accessToken = configuration.GetMapboxToken();
+    mapbox = mapboxgl;
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      map = new mapboxgl.Map({
+        container: mapContainer.value!,
+        style: `mapbox://styles/mapbox/${layerId}`,
+        center: [longitude, latitude],
+        zoom: 12,
+        scrollZoom: false,
+        boxZoom: true,
+        doubleClickZoom: false
+      });
+
+      AddMapboxDrawControl();
+    });
+  }
 }
 
+const GetWayPointsFromDirections = async (drawData: any) => {
+  const firstFeature = drawData.features[0];
+  const coordinates: Array<Array<number>> = firstFeature.geometry.coordinates as Array<Array<number>>;
+  const directions: MapboxDirections = await mapboxSearch.GetDirections("driving", coordinates);
+  const waypoints: Array<Array<number>> = [];
+  const firstRoute = directions?.routes[0];
 
-
-onMounted(async () => {
-
-  // const url = `https://api.mapbox.com/directions/v5/mapbox/cycling/-122.42,37.78;-77.03,38.91?access_token=${configuration.GetMapboxToken()}`;
-  // try {
-  //   const response = await fetch(url);
-  //   const data = await response.json();
-  //   console.log(data);
-  //   // Handle route data (e.g., display on map)
-  // } catch (error) {
-  //   console.error('Error fetching route:', error);
-  // }
-
-  //"https://api.mapbox.com/directions/v5/mapbox/cycling/-122.42,37.78;-77.03,38.91?access_token=YOUR_MAPBOX_ACCESS_TOKEN"
-
-
-  MapboxInit();
-
-  map = new mapboxgl.Map({
-    container: mapContainer.value!,
-    style: "mapbox://styles/mapbox/streets-v11",
-    center: [103.811279, 1.345399],
-    zoom: 12
+  firstRoute?.geometry.coordinates.forEach((waypoint: any) => {
+    waypoints.push(waypoint);
   });
 
+  if (firstRoute) {
+    const travelDistance = (firstRoute.distance / 1000);
+    dist.value = `${travelDistance.toFixed(2)}km`;
+  }
+
+  return waypoints;
+}
+
+const AddMapboxDrawControl = async () => {
   const draw = new MapboxDraw({
     keybindings: true,           // Enable keyboard shortcuts
     boxSelect: true,             // Enable shift+click to select features
@@ -60,56 +94,57 @@ onMounted(async () => {
     defaultMode: "simple_select"
   });
 
-  map.addControl(draw);
-  map.addControl(new mapboxgl.NavigationControl());
+  onDeleteDrawing(map, draw);
 
+  onCreateDrawing(map, draw);
+
+  map.addControl(draw);
+}
+
+const onCreateDrawing = (map: mapboxgl.Map, draw: MapboxDraw) => {
   map.on("draw.create", async (e) => {
     const drawData = draw.getAll();
+
     if (drawData.features.length > 0) {
-      const coords = drawData.features[0].geometry.coordinates;
+      map.addSource("route", {
+        type: "geojson",
+        data: lineString(await GetWayPointsFromDirections(drawData))
+      });
 
-      const start = coords[0];
-      const end = coords[1];
-      const profile = "driving"
-
-      const url = `https://api.mapbox.com/directions/v5/mapbox/${profile}/${start};${end}?steps=true&geometries=geojson&access_token=${configuration.GetMapboxToken()}`;
-      try {
-        const response = await fetch(url);
-        const dt = await response.json();
-        const waypoints: any = [];
-        dt.routes[0].geometry.coordinates.forEach((wp: any) => { waypoints.push(wp) })
-        const distance = dt.routes[0].distance
-        const _linestring = lineString(waypoints)
-
-
-        map.addSource('route', {
-          type: 'geojson',
-          data: _linestring
-        });
-
-        map.addLayer({
-          id: 'route',
-          type: 'line',
-          source: 'route',
-          layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-          },
-          paint: {
-            'line-color': '#888',
-            'line-width': 8
-          }
-        });
-        // Handle route data (e.g., display on map)
-      } catch (error) {
-        console.error('Error fetching route:', error);
-      }
-
-      console.log(coords)
-      //const dist = distance(coords[0], coords[coords.length - 1], { units: "kilometers" });
-      //alert(`Distance: ${dist.toFixed(2)} km`);
+      map.addLayer({
+        id: "route",
+        type: "line",
+        source: "route",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round"
+        },
+        paint: {
+          "line-color": "#888",
+          "line-width": 8
+        }
+      });
     }
-  });
+  })
+}
+
+const onDeleteDrawing = (map: mapboxgl.Map, draw: MapboxDraw) => {
+  map.on("draw.delete", async (e) => {
+    const data = draw.getAll();
+    if (data.features.length === 0) {
+      map.removeLayer("route");
+      map.removeSource("route");
+    }
+
+    setTimeout(() => {
+      draw.deleteAll();
+    }, 0)
+  })
+}
+
+
+onMounted(async () => {
+  MapboxInit();
 })
 </script>
 

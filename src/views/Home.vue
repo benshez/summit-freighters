@@ -4,7 +4,6 @@
     Home
     <div class="container">sdfsdf</div>
     <div v-if="options.userInfo">
-      {{ options.userInfo?.accessToken }}
     </div>
   </div>
 </template>
@@ -23,7 +22,6 @@ const testMsg = 'WTF'
 const clicked = async () => {
 
 
-  await authStore.GetUserInfo(options.userInfo?.uid || "");
 
   api.defaults.headers.get.Authorization = "";
 }

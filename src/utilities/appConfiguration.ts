@@ -34,7 +34,7 @@ class appConfiguration implements IConfig {
       measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID
     }
     
-    this.GetApiHeaderConfiguration();
+    //this.GetApiHeaderConfiguration();
   }
 
   GetApiHeaderConfiguration = (): AxiosRequestConfig => {
