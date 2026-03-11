@@ -3,22 +3,25 @@
 
 @scope(.summit-freighters-start) to (.summit-freighters-end) {
 @import "tailwindcss";
+@import "flowbite-vue/index.css";
 
-  font-family: var(--font-sans);
-  -webkit-text-size-adjust: 100%;
-  tab-size: 4;
-  line-height: var(--text-sm--line-height);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  min-height: 840px;
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-normal);
+.body {
+  font-family:var(--font-sans);
+  font-size:var(--text-sm);
+  font-weight:var(--font-weight-normal);
   background-color: var(--color-white);
-  color: var(--color-gray-800);
-  letter-spacing: var(--tracking-tight);
-  margin-top: calc(var(--spacing) * 15);
+  -webkit-text-size-adjust:100%;
+  tab-size:4;
+  color:var(--color-gray-800);
+  line-height:var(--text-sm--line-height);
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  letter-spacing:var(--tracking-tight);
+  min-height:840px;
+}
 
+/*
   @media (min-width: 40rem) {
     .sm\:max-w-sm {
         max-width: var(--container-sm);
@@ -50,7 +53,7 @@
     font-weight: var(--font-weight-medium);
     font-size: var(--text-xs);
   }
-  
+  */
   
 }
 

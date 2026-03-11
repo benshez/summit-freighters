@@ -32,7 +32,7 @@
 import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import type { IElement } from "@/interfaces";
-import { authStore } from "@/store";
+import { authStore } from "@/store/auth/authStore";
 
 const Register = async (args: Array<IElement>) => {
   let email: string = "";

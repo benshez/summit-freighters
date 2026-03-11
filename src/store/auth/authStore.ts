@@ -11,7 +11,7 @@ import {
 
   signOut
 } from "firebase/auth";
-import { useFirebase } from "@/utilities";
+import { useFirebase } from "@/utilities/firebase/useFirebase";
 import { appStore } from "@/utilities";
 import { authState } from "@/store";
 import { configuration } from "@/utilities";

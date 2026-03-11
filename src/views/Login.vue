@@ -33,7 +33,7 @@ import { useRouter } from "vue-router";
 import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import type { IElement } from "@/interfaces";
-import { useFirebase } from "@/utilities";
+import { useFirebase } from "@/utilities/firebase/useFirebase";
 
 const router = useRouter();
 const db = useFirebase();

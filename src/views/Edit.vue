@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col lg:flex-row gap-8 px-6 py-8 lg:px-8">
+  <div class="flex flex-col lg:flex-row gap-4 px-2 py-8 lg:px-4">
     <!-- Left Column - Profile Picture & Navigation -->
     <div class="lg:w-1/3">
       <!-- Profile Picture Section -->
@@ -68,8 +68,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import FormBody from "@/components/Form/FormBody.vue";;
-import { useFirebase } from "@/utilities";
-import { useFormStore } from "@/store";
+import { useFirebase } from "@/utilities/firebase/useFirebase";
+import { useFormStore } from "@/store/forms/formStore";
 
 const formStore = useFormStore();
 const currentUser = ref({

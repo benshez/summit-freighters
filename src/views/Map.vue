@@ -1,18 +1,19 @@
 <template>
-  <div class="flex min-h-full flex-1 flex-col justify-center">
-    <div class="flex flex-col lg:flex-row gap-8 px-6 py-8 lg:px-8">
+  <div class="flex min-h-full flex-1 flex-col mt-14">
+    <div class="flex flex-col lg:flex-row gap-2 px-2 py-2 lg:px-2">
 
+      <div class="lg:w-2/3">
+        <div class="bg-white shadow-sm p-1 mb-2">
+          <div ref="mapContainer" class="map-container"></div>
+
+        </div>
+      </div>
       <div class="lg:w-1/3">
-        <div class="bg-white shadow-sm p-6 mb-4">
-          <div class="flex flex-col items-center">
+        <div class="bg-white shadow-sm p-1">
+            <div class="flex flex-col items-center">
             <p></p>
             {{ dist }}
           </div>
-        </div>
-      </div>
-      <div class="lg:w-2/3">
-        <div class="bg-white shadow-sm p-6">
-          <div ref="mapContainer" class="map-container"></div>
         </div>
       </div>
     </div>
@@ -21,11 +22,11 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { type LngLatLike } from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
-import { distance, lineString } from "@turf/turf";
+import { lineString } from "@turf/turf";
 import { configuration } from "@/utilities";
 import { mapboxSearch } from "@/api";
 import type { MapboxDirections } from "@/interfaces";
@@ -36,30 +37,42 @@ const dist = ref<string>("");
 let mapbox: unknown;
 let map: mapboxgl.Map;
 
+const GetGeolocation = (): LngLatLike => {
+  let latitude = -29.85260156155084;
+  let longitude = 31.009960218027402;
+
+  if (navigator.geolocation) {
+    navigator
+      .geolocation
+      .getCurrentPosition((position) => {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+      }, (e) => {
+        return [longitude, latitude];
+      }, {
+        timeout: 50000,
+        enableHighAccuracy: true
+      });
+  }
+
+  return [longitude, latitude];
+}
 const MapboxInit = () => {
   if (mapbox) return;
 
-  if (navigator.geolocation) {
-    mapboxgl.accessToken = configuration.GetMapboxToken();
-    mapbox = mapboxgl;
+  mapboxgl.accessToken = configuration.GetMapboxToken();
+  mapbox = mapboxgl;
+  map = new mapboxgl.Map({
+    container: mapContainer.value!,
+    style: `mapbox://styles/mapbox/${layerId}`,
+    center: GetGeolocation(),
+    zoom: 12,
+    scrollZoom: true,
+    boxZoom: true,
+    doubleClickZoom: false
+  });
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      map = new mapboxgl.Map({
-        container: mapContainer.value!,
-        style: `mapbox://styles/mapbox/${layerId}`,
-        center: [longitude, latitude],
-        zoom: 12,
-        scrollZoom: false,
-        boxZoom: true,
-        doubleClickZoom: false
-      });
-
-      AddMapboxDrawControl();
-    });
-  }
+  AddMapboxDrawControl();
 }
 
 const GetWayPointsFromDirections = async (drawData: any) => {

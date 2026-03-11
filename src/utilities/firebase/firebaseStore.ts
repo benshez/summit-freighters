@@ -5,7 +5,7 @@ import {
   QueryDocumentSnapshot,
   collection
 } from "firebase/firestore";
-import { useFirebase } from "@/utilities";
+import { useFirebase } from "@/utilities/firebase/useFirebase";
 import { type IUser } from "@/interfaces";
 
 const converter = <T>(): FirestoreDataConverter<T> => ({

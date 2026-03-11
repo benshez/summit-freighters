@@ -1,5 +1,5 @@
 import HomeView from "@/views/Home.vue";
-import { authStore } from "@/store";
+import { authStore } from "@/store/auth/authStore";
 
 const routes = [
   {

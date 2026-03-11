@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <Header />
     Home
     <div class="container">sdfsdf</div>
     <div v-if="options.userInfo">
+      djhghjhjghjg
     </div>
   </div>
 </template>
