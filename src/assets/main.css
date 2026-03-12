@@ -1,25 +1,31 @@
-@import "./theme.css";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+@import "tailwindcss/theme";
+@import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @scope(.summit-freighters-start) to (.summit-freighters-end) {
-@import "tailwindcss";
-@import "flowbite-vue/index.css";
-
-.body {
-  font-family:var(--font-sans);
-  font-size:var(--text-sm);
-  font-weight:var(--font-weight-normal);
-  background-color: var(--color-white);
-  -webkit-text-size-adjust:100%;
-  tab-size:4;
-  color:var(--color-gray-800);
-  line-height:var(--text-sm--line-height);
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  letter-spacing:var(--tracking-tight);
-  min-height:840px;
+@layer base {
+  .body {
+    font-family:var(--font-sans);
+    font-size:var(--text-sm);
+    font-weight:var(--font-weight-normal);
+    background-color: var(--color-white);
+    -webkit-text-size-adjust:100%;
+    tab-size:4;
+    color:var(--color-gray-800);
+    line-height:var(--text-sm--line-height);
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    letter-spacing:var(--tracking-tight);
+  }
 }
+
+
 
 /*
   @media (min-width: 40rem) {

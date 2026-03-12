@@ -1,23 +1,29 @@
 <template>
-  <div class="flex min-h-full flex-1 flex-col mt-14">
-    <div class="flex flex-col lg:flex-row gap-2 px-2 py-2 lg:px-2">
-
-      <div class="lg:w-2/3">
-        <div class="bg-white shadow-sm p-1 mb-2">
-          <div ref="mapContainer" class="map-container"></div>
-
-        </div>
+  <FormTwoColumnLayout :is-left-layout="false">
+    <template v-slot:form-body-left>
+      <div ref="mapContainer" class="map-container"></div>
+    </template>
+    <template v-slot:form-body-right>
+      <div class="flex flex-col items-center">
+        <FormBody>
+          <template v-slot:header>
+            Personal Information
+          </template>
+          <template v-slot:content></template>
+          <template v-slot:footer="elements">
+            <div class="mb-6 text-center">
+              <div class="mt-6">
+                <button type="button" @click="saveTrip(elements.elements)"
+                  class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </template>
+        </FormBody>
       </div>
-      <div class="lg:w-1/3">
-        <div class="bg-white shadow-sm p-1">
-            <div class="flex flex-col items-center">
-            <p></p>
-            {{ dist }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </template>
+  </FormTwoColumnLayout>
 </template>
 
 <script setup lang="ts">
@@ -27,13 +33,16 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { lineString } from "@turf/turf";
+import FormTwoColumnLayout from "@/components/Form/FormTwoColumnLayout.vue";
+import FormBody from "@/components/Form/FormBody.vue";
 import { configuration } from "@/utilities";
 import { mapboxSearch } from "@/api";
 import type { MapboxDirections } from "@/interfaces";
+import { useFormStore } from "@/store/forms/formStore";
 
+const formStore = useFormStore();
 const layerId: string = "standard";
 const mapContainer = ref<HTMLElement | null>(null);
-const dist = ref<string>("");
 let mapbox: unknown;
 let map: mapboxgl.Map;
 
@@ -67,7 +76,7 @@ const MapboxInit = () => {
     style: `mapbox://styles/mapbox/${layerId}`,
     center: GetGeolocation(),
     zoom: 12,
-    scrollZoom: true,
+    scrollZoom: false,
     boxZoom: true,
     doubleClickZoom: false
   });
@@ -88,7 +97,7 @@ const GetWayPointsFromDirections = async (drawData: any) => {
 
   if (firstRoute) {
     const travelDistance = (firstRoute.distance / 1000);
-    dist.value = `${travelDistance.toFixed(2)}km`;
+    formStore.updateElementState("distance", { key: "value", value: `${travelDistance.toFixed(2)}km` });
   }
 
   return waypoints;
@@ -155,6 +164,9 @@ const onDeleteDrawing = (map: mapboxgl.Map, draw: MapboxDraw) => {
   })
 }
 
+const saveTrip = (event: any) => {
+
+}
 
 onMounted(async () => {
   MapboxInit();

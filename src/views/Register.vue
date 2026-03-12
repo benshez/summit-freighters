@@ -1,6 +1,6 @@
 <template>
-  <div class="flex min-h-full flex-1 flex-col px-6 py-8 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm bg-white shadow-sm p-6">
+  <FormOneColumnLayout>
+    <template v-slot:form-body>
       <FormBody>
         <template v-slot:header>
           <LoginProviders :message="'Sign in with'" :heading="'Welcome Back!'" />
@@ -24,13 +24,14 @@
           </div>
         </template>
       </FormBody>
-    </div>
-  </div>
+    </template>
+  </FormOneColumnLayout>
 </template>
 
 <script setup lang="ts">
 import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
+import FormOneColumnLayout from "@/components/Form/FormOneColumnLayout.vue";
 import type { IElement } from "@/interfaces";
 import { authStore } from "@/store/auth/authStore";
 
@@ -51,9 +52,9 @@ const Register = async (args: Array<IElement>) => {
 
   if (email !== "" && password !== "") {
     try {
-    await authStore.CreateUser(email, password);
-    await authStore.SendVerificationEmail();
-    } catch(e) {
+      await authStore.CreateUser(email, password);
+      await authStore.SendVerificationEmail();
+    } catch (e) {
       alert(e)
     }
   }

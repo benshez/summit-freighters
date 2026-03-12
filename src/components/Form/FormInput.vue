@@ -12,9 +12,7 @@
         </svg>
       </div>
     </template>
-    <template v-slot:help>
-      
-    </template>
+    <template v-slot:help></template>
   </FormElement>
 </template>
 

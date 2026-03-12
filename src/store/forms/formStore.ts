@@ -1,6 +1,6 @@
 import { defineStore, } from "pinia";
 import type { IPage, IElement } from "@/interfaces";
-import { useRegisterView, useEditView, useLoginView } from "@/store"
+import { useRegisterView, useEditView, useLoginView, useMapView } from "@/store"
 
 export const useFormStore = defineStore("form", {
   state: () => ({
@@ -20,6 +20,8 @@ export const useFormStore = defineStore("form", {
         case "register":
           elements = useRegisterView().GetElements();
           break;
+        case "map": 
+          elements = useMapView().GetElements();
       }
 
       this.$state.elementsState = elements as Array<IElement>;

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex min-h-full flex-1 flex-col px-6 py-8 lg:px-">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm bg-white shadow-sm p-6">
+  <FormOneColumnLayout>
+    <template v-slot:form-body>
       <FormBody>
         <template v-slot:header>
           <LoginProviders :message="'Sign in with'" :heading="'Welcome Back!'" />
@@ -25,13 +25,14 @@
           </div>
         </template>
       </FormBody>
-    </div>
-  </div>
+    </template>
+  </FormOneColumnLayout>
 </template>
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
+import FormOneColumnLayout from "@/components/Form/FormOneColumnLayout.vue";
 import type { IElement } from "@/interfaces";
 import { useFirebase } from "@/utilities/firebase/useFirebase";
 
