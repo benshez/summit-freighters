@@ -10,9 +10,6 @@
 
 <script setup lang="ts">
 import { inject } from "vue";
-import Header from "@/components/Header.vue";
-import { api } from "@/plugins/index";
-import { authStore } from "@/store/auth/authStore";
 import type { IWidgetOptions } from "@/interfaces";
 
 const options = inject("options") as IWidgetOptions
@@ -21,8 +18,5 @@ const options = inject("options") as IWidgetOptions
 const testMsg = 'WTF'
 const clicked = async () => {
 
-
-
-  api.defaults.headers.get.Authorization = "";
 }
 </script>

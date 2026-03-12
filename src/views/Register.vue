@@ -33,7 +33,9 @@ import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import FormOneColumnLayout from "@/components/Form/FormOneColumnLayout.vue";
 import type { IElement } from "@/interfaces";
-import { authStore } from "@/store/auth/authStore";
+import { useAuthStore } from "@/store/auth/authStore";
+
+const authStore = useAuthStore();
 
 const Register = async (args: Array<IElement>) => {
   let email: string = "";

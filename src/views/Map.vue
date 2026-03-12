@@ -37,7 +37,7 @@ import FormTwoColumnLayout from "@/components/Form/FormTwoColumnLayout.vue";
 import FormBody from "@/components/Form/FormBody.vue";
 import { configuration } from "@/utilities";
 import { mapboxSearch } from "@/api";
-import type { MapboxDirections } from "@/interfaces";
+import type { MapboxDirections, IElement } from "@/interfaces";
 import { useFormStore } from "@/store/forms/formStore";
 
 const formStore = useFormStore();
@@ -164,7 +164,7 @@ const onDeleteDrawing = (map: mapboxgl.Map, draw: MapboxDraw) => {
   })
 }
 
-const saveTrip = (event: any) => {
+const saveTrip = (elements: Array<IElement>) => {
 
 }
 

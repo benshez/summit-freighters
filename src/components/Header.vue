@@ -16,7 +16,8 @@
         </svg>
       </button>
       <transition name="fade" mode="out-in">
-        <div :class="{ 'md:block md:w-auto md:absolute md:top-15 md:right-0 w-full bg-white': show, 'hidden w-full md:block md:w-auto': !show }"
+        <div
+          :class="{ 'md:block md:w-auto md:absolute md:top-15 md:right-0 w-full bg-white': show, 'hidden w-full md:block md:w-auto': !show }"
           id="navbar-multi-level-dropdown">
           <ul
             class="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white w-full">
@@ -35,9 +36,9 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useFirebase } from "@/utilities";
+import { useAuthStore } from "@/store";
 
-const db = useFirebase();
+const authStore = useAuthStore();
 const router = useRouter();
 const routesList = computed(() => {
   return router.getRoutes();
@@ -46,11 +47,11 @@ const routesList = computed(() => {
 const show = ref(false);
 
 const Logout = async () => {
-  db.logoutUser();
-  await useFirebase().getCurrentUser();
-  useFirebase().auth.onAuthStateChanged((user) => {
+  authStore.LogoutUser();
+  const user = await authStore.GetCurrentUser();
+  if (user) {
     if (!user || !user.emailVerified) router.push("/login");
-  })
+  }
 }
 
 </script>

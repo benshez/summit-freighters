@@ -60,6 +60,7 @@ import FormBody from "@/components/Form/FormBody.vue";
 import FormTwoColumnLayout from "@/components/Form/FormTwoColumnLayout.vue";
 import { useFirebase } from "@/utilities/firebase/useFirebase";
 import { useFormStore } from "@/store/forms/formStore";
+import type { IElement } from "@/interfaces";
 
 const formStore = useFormStore();
 const currentUser = ref({
@@ -67,9 +68,9 @@ const currentUser = ref({
   displayName: ""
 });
 
-const saveProfile = (e: any) => {
+const saveProfile = (elements: Array<IElement>) => {
   // Send profile data to server
-  console.log("Saving profile:", e)
+  console.log("Saving profile:", elements)
   // Show success message
 }
 

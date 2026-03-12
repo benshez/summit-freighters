@@ -1,5 +1,5 @@
 <template>
-    <div class="flex min-h-full flex-1 flex-col justify-center">
+    <div class="flex w-full min-h-full flex-1 flex-col justify-center">
         <slot name="header"></slot>
         <slot name="content">
             <FormBuilder :elements="elements" />

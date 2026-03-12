@@ -9,11 +9,7 @@ import {
 } from "firebase/firestore";
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  signOut,
-  type Auth
-  ,
-  type User
+  type Auth,
 } from "firebase/auth";
 import { configuration } from "@/utilities";
 
@@ -22,26 +18,9 @@ export const useFirebase = () => {
   const firebaseApp: Firestore = getFirestore(app);
   const auth: Auth = getAuth(app);
 
-  const loginUser = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password);
-  }
-
-  const logoutUser = async () => {
-    await signOut(auth);
-  }
-
-  const getCurrentUser = async (): Promise<User | null> => {
-    const auth = getAuth();
-    await auth.authStateReady();
-    return auth.currentUser;
-  };
-
   return {
     app,
     firebaseApp,
-    auth,
-    loginUser,
-    logoutUser,
-    getCurrentUser
+    auth
   }
 }

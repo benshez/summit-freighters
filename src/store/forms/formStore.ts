@@ -1,5 +1,5 @@
 import { defineStore, } from "pinia";
-import type { IPage, IElement } from "@/interfaces";
+import type { IElement } from "@/interfaces";
 import { useRegisterView, useEditView, useLoginView, useMapView } from "@/store"
 
 export const useFormStore = defineStore("form", {

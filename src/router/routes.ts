@@ -1,5 +1,5 @@
 import HomeView from "@/views/Home.vue";
-import { authStore } from "@/store/auth/authStore";
+import { useAuthStore } from "@/store";
 
 const routes = [
   {
@@ -16,11 +16,6 @@ const routes = [
     name: "about",
     component: () =>
       import(/* webpackChunkName: "about" */ "@/views/About.vue"),
-    // beforeEnter: async (to: any, from: any, next: any) => {
-    //   const isAuthenticated = authStore.GetState().isAuthenticated;
-    //   if (to.name === "about" && !isAuthenticated) next({ name: "login" })
-    //   else next()
-    // },
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - About",
@@ -31,12 +26,11 @@ const routes = [
     name: "edit",
     component: () =>
       import(/* webpackChunkName: "edit" */ "@/views/Edit.vue"),
-    // beforeEnter: async (to: any, from: any, next: any) => {
-    //   authStore.Init();
-    //   const isAuthenticated = authStore.GetState().isAuthenticated;
-    //   if (to.name === "edit" && !isAuthenticated) next({ name: "login" })
-    //   else next()
-    // },
+    beforeEnter: async (to: any, from: any, next: any) => {
+      const isAuthenticated = await useAuthStore().GetCurrentUser();
+      if (to.name === "edit" && !isAuthenticated) next({ name: "login" })
+      else next()
+    },
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Edit",
@@ -67,6 +61,11 @@ const routes = [
     name: "map",
     component: () =>
       import(/* webpackChunkName: "register" */ "@/views/Map.vue"),
+    beforeEnter: async (to: any, from: any, next: any) => {
+      const isAuthenticated = await useAuthStore().GetCurrentUser();
+      if (to.name === "map" && !isAuthenticated) next({ name: "login" })
+      else next()
+    },    
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Map",

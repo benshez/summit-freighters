@@ -3,8 +3,7 @@
     <template v-slot:label></template>
     <template v-slot:component>
       <div class="relative mt-1 w-full">
-        <select v-if="element.component" v-model="element.value" :id="element.id" :options="element.options"
-          optionLabel="value" optionValue="key" :placeholder="element.placeholderText" :class="element.cssClass"
+        <select v-if="element.component" v-model="element.value" :id="element.id" :class="element.cssClass"
           @change="handleInput(element.id as string)">
           <option v-if="element.options" v-for="(option, optionIndex) in element.options" :key="optionIndex"
             :value="option.key">{{ option.value }}</option>

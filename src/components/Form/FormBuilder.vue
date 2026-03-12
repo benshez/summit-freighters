@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
 import FormInput from "@/components/Form/FormInput.vue";
-import FormDropdown from "@/components/Form/FormDropDown.vue"
+import FormDropdown from "@/components/Form/FormDropdown.vue"
 import type { IElement } from "@/interfaces";
 
 const props = defineProps({
