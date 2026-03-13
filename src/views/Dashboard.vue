@@ -1,13 +1,12 @@
 <template>
   <div :class="{'flex h-screen overflow-hidden': !darkMode, 'flex h-screen overflow-hidden dark bg-gray-900': darkMode}">
     <aside
-      :class="{ 'sidebar fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-auto border-r px-5 transition-all duration-300 xl:static xl:translate-x-0  -translate-x-full': sidebarToggle, 'sidebar fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-auto border-r px-5 transition-all duration-300 static xl:translate-x-0  translate-x-0 w-[90px]': !sidebarToggle }">
-
+      :class="{ 'fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-auto border-r px-5 transition-all duration-300 xl:static xl:translate-x-0 dark:border-gray-800 dark:bg-black -translate-x-full': sidebarToggle, 'fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-auto border-r px-5 transition-all duration-300 static translate-x-0 dark:border-gray-800 dark:bg-black translate-x-0 xl:w-[90px]': !sidebarToggle }">
     </aside>
     <div class="relative flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
       <header
         class="sticky top-0 z-99999 flex w-full">
-        <div class="flex grow flex-col items-center justify-between flex-row xl:px-6 border-b shadow-none">
+        <div class="flex grow flex-col items-center justify-between flex-row xl:px-6 border-b">
           <div
             class="flex w-full items-center justify-between gap-2 border-b px-3 py-3 sm:gap-4 lg:py-4 justify-normal border-b-0 xl:px-0 ">
             <button
@@ -42,7 +41,7 @@
           </div>
         </div>
       </header>
-      <main class="grid grid-cols-12 gap-4 md:gap-6">
+      <main class="grid grid-cols-12 gap-4 md:gap-6 mb-auto flex-grow">
         <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
 
           sdasdas
