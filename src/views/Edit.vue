@@ -58,11 +58,12 @@
 import { onMounted, ref } from "vue"
 import FormBody from "@/components/Form/FormBody.vue";
 import FormTwoColumnLayout from "@/components/Form/FormTwoColumnLayout.vue";
-import { useFirebase } from "@/utilities/firebase/useFirebase";
+import { useAuthStore } from "@/store/auth/authStore";
 import { useFormStore } from "@/store/forms/formStore";
 import type { IElement } from "@/interfaces";
 
 const formStore = useFormStore();
+const authStore = useAuthStore();
 const currentUser = ref({
   photoURL: "",
   displayName: ""
@@ -75,7 +76,7 @@ const saveProfile = (elements: Array<IElement>) => {
 }
 
 onMounted(async () => {
-  const user = await useFirebase().getCurrentUser();
+  const user = await authStore.GetCurrentUser();
   formStore.updateElementState("email", { key: "value", value: user?.email });
   formStore.updateElementState("name", { key: "value", value: user?.displayName });
   currentUser.value = {

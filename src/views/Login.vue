@@ -34,10 +34,10 @@ import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import FormOneColumnLayout from "@/components/Form/FormOneColumnLayout.vue";
 import type { IElement } from "@/interfaces";
-import { useFirebase } from "@/utilities/firebase/useFirebase";
+import { useAuthStore } from "@/store/auth/authStore";
 
 const router = useRouter();
-const db = useFirebase();
+const autStore = useAuthStore();
 const Login = async (args: Array<IElement>) => {
   let email: string = "";
   let password: string = "";
@@ -54,11 +54,10 @@ const Login = async (args: Array<IElement>) => {
   })
 
   if (email !== "" && password !== "") {
-    db.loginUser(email, password);
-    useFirebase().getCurrentUser();
-    useFirebase().auth.onAuthStateChanged((user) => {
-      if (user && user.emailVerified) router.push("/edit");
-    });
+    await autStore.LoginUser(email, password);
+    const user = await autStore.GetCurrentUser();
+
+    if (user && user.emailVerified) router.push("/edit");
   }
 }
 

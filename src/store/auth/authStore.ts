@@ -3,7 +3,6 @@ import { defineStore, } from "pinia";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  getAuth,
   updatePassword,
   updateEmail,
   updateProfile,
@@ -133,7 +132,7 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async GetCurrentUser(): Promise<User | null> {
-      const auth = getAuth();
+      const auth = useFirebase().auth;
       await auth.authStateReady();
       return auth.currentUser;
     }

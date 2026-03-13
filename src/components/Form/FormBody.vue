@@ -9,14 +9,12 @@
 </template>
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
-import { inject, toRefs } from "vue";
+import { toRefs } from "vue";
 import FormBuilder from "@/components/Form/FormBuilder.vue";
-import type { IWidgetOptions } from "@/interfaces";
 import { useFormStore } from "@/store/forms/formStore";
 
 const formStore = useFormStore();
 const route = useRoute();
-const options = inject("options") as IWidgetOptions;
 formStore.getElements(route.name as string)
 const { elements } = toRefs(formStore);
 

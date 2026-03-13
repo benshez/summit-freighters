@@ -9,6 +9,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Home",
+      name: "Home"
     },
   },  
   {
@@ -19,8 +20,20 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - About",
+      name: "About"
     },
   },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: () =>
+      import(/* webpackChunkName: "dashboard" */ "@/views/Dashboard.vue"),
+    meta: {
+      requiresAuth: true,
+      title: "Summit Freighters - Dashboard",
+      name: "Dashboard"
+    },
+  },  
   {
     path: "/edit",
     name: "edit",
@@ -34,6 +47,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Edit",
+      name: "Edit"
     },
   },  
   {
@@ -44,6 +58,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Login",
+      name: "Login"
     },
   },
   {
@@ -54,6 +69,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Register",
+      name: "Register"
     },
   },
  {
@@ -69,6 +85,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Map",
+      name: "Map"
     },
   },  
 ];

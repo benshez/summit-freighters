@@ -25,7 +25,22 @@
   }
 }
 
+@layer components {
+  * {
+    background-color: var(--color-white);
+    border-color: var(--color-gray-200)!important;
+    transition: all;
+    transition-duration: 300;    
+  }
 
+  .dark * {
+    background-color: var(--bg-gray-900)!important;
+    color: var(--color-gray-300)!important;
+    border-color: var(--color-gray-800)!important;
+    transition: all;
+    transition-duration: 300;
+  }
+}
 
 /*
   @media (min-width: 40rem) {

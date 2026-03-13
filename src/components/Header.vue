@@ -15,21 +15,22 @@
             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
         </svg>
       </button>
-      <transition name="fade" mode="out-in">
-        <div
-          :class="{ 'md:block md:w-auto md:absolute md:top-15 md:right-0 w-full bg-white': show, 'hidden w-full md:block md:w-auto': !show }"
+
+        <div v-if="show"
+          class="md:block md:w-auto md:absolute md:top-20 md:right-0 w-full bg-white transition-all duration-300"
           id="navbar-multi-level-dropdown">
           <ul
             class="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white w-full">
             <li v-for="route in routesList" :key="route.path">
               <router-link :to="route.path"
                 class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent w-full">
-                {{ route.name || route.path }}
+                {{ route.meta.name || route.path }}
               </router-link>
             </li>
+            <li class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent w-full">Logout</li>
           </ul>
         </div>
-      </transition>
+
     </div>
   </nav>
 </template>
