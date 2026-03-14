@@ -1,9 +1,9 @@
 <template>
-  <FormTwoColumnLayout :is-left-layout="true">
+  <FormTwoColumnLayout>
     <template v-slot:form-body-left>
       <div class="flex flex-col items-center">
         <div class="relative profile-pic-upload mb-4">
-          <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+          <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow">
             <img id="profileImage" :src="currentUser.photoURL" alt="Profile" class="w-full h-full object-cover">
           </div>
           <div
@@ -14,17 +14,16 @@
             <input type="file" id="fileInput" class="hidden" accept="image/*">
           </div>
         </div>
-        <h2 class="text-xl font-semibold text-gray-800">
+        <h2>
           {{ currentUser.displayName }}
         </h2>
-        <p class="text-gray-500 text-sm">Software Developer</p>
-
-        <button id="changePhotoBtn"
-          class="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors">
+        <p class="text-sm mb-5">Software Developer</p>
+        <button id="changePhotoBtn" class="flex w-full justify-center border p-2 rounded">
           Change Photo
         </button>
       </div>
     </template>
+
     <template v-slot:form-body-right>
       <FormBody>
         <template v-slot:header>

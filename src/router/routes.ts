@@ -58,7 +58,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Login",
-      name: "Login"
+      name: "Signin"
     },
   },
   {
@@ -69,7 +69,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Summit Freighters - Register",
-      name: "Register"
+      name: "Signup"
     },
   },
  {

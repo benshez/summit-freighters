@@ -1,27 +1,25 @@
 <template>
   <FormTwoColumnLayout :is-left-layout="false">
     <template v-slot:form-body-left>
-      <div ref="mapContainer" class="map-container"></div>
+      <FormBody>
+        <template v-slot:header>
+          Personal Information
+        </template>
+        <template v-slot:content></template>
+        <template v-slot:footer="elements">
+          <div class="mb-6 text-center">
+            <div class="mt-6">
+              <button type="button" @click="saveTrip(elements.elements)"
+                class="flex w-full justify-center border p-2 rounded">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </template>
+      </FormBody>
     </template>
     <template v-slot:form-body-right>
-      <div class="flex flex-col items-center">
-        <FormBody>
-          <template v-slot:header>
-            Personal Information
-          </template>
-          <template v-slot:content></template>
-          <template v-slot:footer="elements">
-            <div class="mb-6 text-center">
-              <div class="mt-6">
-                <button type="button" @click="saveTrip(elements.elements)"
-                  class="flex w-full justify-center border p-2 rounded">
-                  Save Changes
-                </button>
-              </div>
-            </div>
-          </template>
-        </FormBody>
-      </div>
+      <div ref="mapContainer" class="map-container"></div>
     </template>
   </FormTwoColumnLayout>
 </template>
@@ -76,7 +74,7 @@ const MapboxInit = () => {
     style: `mapbox://styles/mapbox/${layerId}`,
     center: GetGeolocation(),
     zoom: 12,
-    scrollZoom: false,
+    scrollZoom: true,
     boxZoom: true,
     doubleClickZoom: false
   });
@@ -173,7 +171,7 @@ onMounted(async () => {
 })
 </script>
 
-<style >
+<style>
 .map-container {
   width: 100%;
   height: 600px;
@@ -187,11 +185,12 @@ onMounted(async () => {
   background-color: transparent;
 }
 
-.body .mapboxgl-canvas-container {
-  width: 100%!important;
-}
-
 .body .mapboxgl-canvas {
-  width: 100%!important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

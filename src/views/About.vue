@@ -1,12 +1,5 @@
 <template>
-  <FormLayout>
-    <template v-slot:form>
-      <div class="About">
-        About
-      </div>
-    </template>
-  </FormLayout>
+  <div class="About">
+    About
+  </div>
 </template>
-<script setup lang="ts">
-import FormLayout from "@/components/Form/FormLayout.vue";
-</script>
