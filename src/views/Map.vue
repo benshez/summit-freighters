@@ -19,7 +19,8 @@
       </FormBody>
     </template>
     <template v-slot:form-body-right>
-      <div ref="mapContainer" class="map-container"></div>
+      <div ref="mapContainer" class="map-container">
+      </div>
     </template>
   </FormTwoColumnLayout>
 </template>
@@ -27,8 +28,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import mapboxgl, { type LngLatLike } from "mapbox-gl";
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { lineString } from "@turf/turf";
 import FormTwoColumnLayout from "@/components/Form/FormTwoColumnLayout.vue";
@@ -39,7 +40,7 @@ import type { MapboxDirections, IElement } from "@/interfaces";
 import { useFormStore } from "@/store/forms/formStore";
 
 const formStore = useFormStore();
-const layerId: string = "dark-v11";
+const layerId: string = "light-v11";
 const mapContainer = ref<HTMLElement | null>(null);
 let mapbox: unknown;
 let map: mapboxgl.Map;
@@ -71,13 +72,15 @@ const MapboxInit = () => {
   mapbox = mapboxgl;
   map = new mapboxgl.Map({
     container: mapContainer.value!,
-    style: `mapbox://styles/mapbox/${layerId}`,
     center: GetGeolocation(),
+    style: `mapbox://styles/mapbox/${layerId}`,
     zoom: 12,
     scrollZoom: true,
     boxZoom: true,
     doubleClickZoom: false
   });
+
+  map.resize();
 
   AddMapboxDrawControl();
 }
@@ -170,27 +173,3 @@ onMounted(async () => {
   MapboxInit();
 })
 </script>
-
-<style>
-.map-container {
-  width: 100%;
-  height: 600px;
-}
-
-.body.dark .map-container {
-  background-color: transparent;
-}
-
-.body.dark .map-container * {
-  background-color: transparent;
-}
-
-.body .mapboxgl-canvas {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-</style>

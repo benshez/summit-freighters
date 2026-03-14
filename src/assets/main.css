@@ -3,13 +3,13 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/theme";
 @import "tailwindcss";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 @scope(.summit-freighters-start) to (.summit-freighters-end) {
+  
   .body {
     font-family:var(--font-sans);
     font-size:var(--text-sm);
@@ -36,6 +36,39 @@
     border-color: var(--color-gray-700);
   }
 
+  .body .mapboxgl-map {
+    width: 100%;
+    height: 600px;
+  }
 
+  .body.dark .mapboxgl-map {
+    background-color: #fff;
+  }
+
+  .body.dark .map-container * {
+    background-color: #fff;
+  }
+
+  .body .mapboxgl-canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .body.dark .mapboxgl-canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .body .mapboxgl-ctrl-top-right {
+    position: unset;
+  }
 }
 

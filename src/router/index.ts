@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useDisplayStore } from "@/store";
 import routes from "@/router/routes";
 import { configuration } from "@/utilities";
 
@@ -9,4 +10,18 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from) => {
+  const displayStore = useDisplayStore();
+  displayStore.UpdateLoaderShowingState(true);
+  setTimeout(() => {
+      
+  }, 150)
+})
+
+router.afterEach((to, from) => {
+  const displayStore = useDisplayStore();
+  setTimeout(() => {
+    displayStore.UpdateLoaderShowingState(false);
+  }, 150)
+})
 export default router;
