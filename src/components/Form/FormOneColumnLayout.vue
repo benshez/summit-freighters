@@ -1,7 +1,7 @@
 <template>
   <FormLayout>
     <template v-slot:form>
-      <div class="sm:mx-auto sm:w-full sm:max-w-sm bg-white shadow-sm lg:p-6 p-1">
+      <div class="overflow-hidden rounded-1xl border px-5 p-5 col-span-6">
         <slot name="form-body"></slot>
       </div>
     </template>

@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="grid grid-cols-12 gap-4 md:gap-6">
     <slot name="nav-bar">    
-      <Header />
+   
     </slot>
-    <div class="flex min-h-full flex-1 flex-col lg:px-2 py-18 lg:px-2 lg:py-2">
+    <div class="col-span-12 xl:col-span-6">
       <slot name="form"></slot>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import Header from "@/components/Header.vue";
 </script>

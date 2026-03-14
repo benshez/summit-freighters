@@ -1,3 +1,4 @@
+
 @import "tailwindcss/preflight";
 @import "tailwindcss/utilities";
 @import "tailwindcss/theme";
@@ -7,74 +8,31 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @scope(.summit-freighters-start) to (.summit-freighters-end) {
-@layer base {
   .body {
     font-family:var(--font-sans);
     font-size:var(--text-sm);
     font-weight:var(--font-weight-normal);
-    background-color: var(--color-white);
     -webkit-text-size-adjust:100%;
     tab-size:4;
-    color:var(--color-gray-800);
     line-height:var(--text-sm--line-height);
     height:100%;
     display:flex;
     flex-direction:column;
     letter-spacing:var(--tracking-tight);
   }
-}
-
-@layer components {
-  * {
+  .body * {
     background-color: var(--color-white);
-    border-color: var(--color-gray-200)!important;
-    transition: all;
-    transition-duration: 300;    
+    border-color: var(--color-gray-200); 
+    color:var(--color-gray-800);
+  }
+  .body.dark *  {
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-300);
+    border-color: var(--color-gray-700);
   }
 
-  .dark * {
-    background-color: var(--bg-gray-900)!important;
-    color: var(--color-gray-300)!important;
-    border-color: var(--color-gray-800)!important;
-    transition: all;
-    transition-duration: 300;
-  }
-}
 
-/*
-  @media (min-width: 40rem) {
-    .sm\:max-w-sm {
-        max-width: var(--container-sm);
-    }
-  }
-  @media (min-width: 40rem) {
-    .sm\:w-full {
-        width: 100%;
-    }
-  }
-  @media (min-width: 40rem) {
-    .sm\:mx-auto {
-        margin-inline: auto;
-    }
-  }
-
-  .border-b {
-    border-width: 0;
-    border-bottom-color: var(--color-gray-300);
-    border-bottom-width: var(--tracking-wider);
-  }
-  .border {
-    border-color: var(--color-gray-300);
-    border-width: var(--tracking-wider);  
-  }
-
-  .text-fg-danger-strong {
-    color: var(--color-red-600);
-    font-weight: var(--font-weight-medium);
-    font-size: var(--text-xs);
-  }
-  */
-  
 }
 

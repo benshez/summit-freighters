@@ -10,15 +10,15 @@
           <div class="mb-6 text-center">
             <div class="mt-6">
               <button type="button" @click="Login(elements.elements)"
-                class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                class="flex w-full justify-center border p-2 rounded">
                 Sign In
               </button>
             </div>
           </div>
-          <hr class="mb-6 border-b" />
+          <hr class="mb-6" />
           <div class="text-center">
             <router-link to="/register">
-              <a class="inline-block text-sm text-indigo-400 align-baseline hover:text-indigo-300">
+              <a class="flex w-full justify-center border p-2 rounded">
                 Create an Account!
               </a>
             </router-link>
@@ -34,10 +34,10 @@ import FormBody from "@/components/Form/FormBody.vue";
 import LoginProviders from "@/components/LoginProviders/LoginProviders.vue";
 import FormOneColumnLayout from "@/components/Form/FormOneColumnLayout.vue";
 import type { IElement } from "@/interfaces";
-import { useAuthStore } from "@/store/auth/authStore";
+import { useUserStore } from "@/store";
 
 const router = useRouter();
-const autStore = useAuthStore();
+const autStore = useUserStore();
 const Login = async (args: Array<IElement>) => {
   let email: string = "";
   let password: string = "";

@@ -14,7 +14,7 @@
             <div class="mb-6 text-center">
               <div class="mt-6">
                 <button type="button" @click="saveTrip(elements.elements)"
-                  class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                  class="flex w-full justify-center border p-2 rounded">
                   Save Changes
                 </button>
               </div>
@@ -41,7 +41,7 @@ import type { MapboxDirections, IElement } from "@/interfaces";
 import { useFormStore } from "@/store/forms/formStore";
 
 const formStore = useFormStore();
-const layerId: string = "standard";
+const layerId: string = "dark-v11";
 const mapContainer = ref<HTMLElement | null>(null);
 let mapbox: unknown;
 let map: mapboxgl.Map;
@@ -173,9 +173,25 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
+<style >
 .map-container {
   width: 100%;
   height: 600px;
+}
+
+.body.dark .map-container {
+  background-color: transparent;
+}
+
+.body.dark .map-container * {
+  background-color: transparent;
+}
+
+.body .mapboxgl-canvas-container {
+  width: 100%!important;
+}
+
+.body .mapboxgl-canvas {
+  width: 100%!important;
 }
 </style>

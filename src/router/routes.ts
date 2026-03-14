@@ -1,5 +1,5 @@
 import HomeView from "@/views/Home.vue";
-import { useAuthStore } from "@/store";
+import { useUserStore } from "@/store";
 
 const routes = [
   {
@@ -40,7 +40,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "edit" */ "@/views/Edit.vue"),
     beforeEnter: async (to: any, from: any, next: any) => {
-      const isAuthenticated = await useAuthStore().GetCurrentUser();
+      const isAuthenticated = await useUserStore().GetCurrentUser();
       if (to.name === "edit" && !isAuthenticated) next({ name: "login" })
       else next()
     },
@@ -78,7 +78,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "register" */ "@/views/Map.vue"),
     beforeEnter: async (to: any, from: any, next: any) => {
-      const isAuthenticated = await useAuthStore().GetCurrentUser();
+      const isAuthenticated = await useUserStore().GetCurrentUser();
       if (to.name === "map" && !isAuthenticated) next({ name: "login" })
       else next()
     },    

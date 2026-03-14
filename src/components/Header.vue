@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white fixed w-full z-10 top-0 start-0 md:relative bg-white shadow-sm">
+  <nav class="fixed w-full z-10 top-0 start-0 md:relative shadow-sm">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Flowbite Logo" />
@@ -17,7 +17,7 @@
       </button>
 
         <div v-if="show"
-          class="md:block md:w-auto md:absolute md:top-20 md:right-0 w-full bg-white transition-all duration-300"
+          class="md:block md:w-auto md:absolute md:top-20 md:right-0 w-full transition-all duration-300"
           id="navbar-multi-level-dropdown">
           <ul
             class="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white w-full">
@@ -37,15 +37,15 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from "@/store";
+import { useUserStore } from "@/store";
 
-const authStore = useAuthStore();
+const authStore = useUserStore();
 const router = useRouter();
 const routesList = computed(() => {
   return router.getRoutes();
 });
 
-const show = ref(false);
+const show = ref(true);
 
 const Logout = async () => {
   authStore.LogoutUser();

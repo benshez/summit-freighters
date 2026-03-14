@@ -14,7 +14,7 @@ import {
 import { useFirebase } from "@/utilities/firebase/useFirebase";
 import { configuration } from "@/utilities";
 
-export const useAuthStore = defineStore("auth", {
+export const useUserStore = defineStore("users", {
   state: () => ({
     userInfoState: {} as User,
     isAuthenticatedState: false as boolean
@@ -127,7 +127,7 @@ export const useAuthStore = defineStore("auth", {
 
         this.$state.userInfoState = authedUser;
         this.$state.isAuthenticatedState = authedUser.uid !== undefined && authedUser.emailVerified !== undefined && userToken !== undefined;
-        configuration.SetAuthorizationBearerToken(userToken as string);
+        //configuration.SetAuthorizationBearerToken(userToken as string);
       }
     },
 
