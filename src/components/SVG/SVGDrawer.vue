@@ -1,5 +1,5 @@
 <template>
-  <svg :width="width" :height="height" :viewBox="view" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg :width="width" :height="height" :viewBox="view" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-2">
     <path v-if="paths.length === 0" fill-rule="evenodd" clip-rule="evenodd" :d="svgPathD" fill="currentColor">
     </path>
     <path v-else v-for="(p, pathIndex) in paths" :key="pathIndex" :d="p.d" :fill="p.fill"></path>
