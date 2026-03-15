@@ -209,17 +209,41 @@ layer(base);
   .body.dark .custom-calendar table tr td {
     @apply dark:!border-gray-700;
   }
+
+  .body.dark .custom-calendar .fc-timegrid-divider {
+    @apply dark:!bg-gray-700;
+    @apply dark:!border-gray-700;
+  }
   
   .body.dark .custom-calendar .fc-col-header * {
     @apply dark:!bg-gray-900; 
   }
 
   .body.dark .custom-calendar .fc-button-group {
-
     border-radius: var(--radius-lg);
     background-color: var(--color-gray-100);
     padding: calc(var(--spacing) * 0.5);
   }
+
+  .body.dark .custom-calendar .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child {
+    border-radius: var(--radius-md);
+    @apply dark:!bg-gray-900; 
+  }
+
+  .body.dark .custom-calendar .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child .fc-button-group {
+    border-radius: var(--radius-md);
+    @apply dark:!bg-gray-900; 
+  }
+  
+  .body.dark .custom-calendar .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child .fc-button {
+    border-radius: var(--radius-md);
+    @apply dark:!bg-gray-900; 
+  }
+
+  .body.dark .custom-calendar .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child .fc-button-active {
+    @apply text-gray-900 bg-white dark:!bg-gray-800 dark:text-white;
+  }
+
 } 
 
 .map-container {
