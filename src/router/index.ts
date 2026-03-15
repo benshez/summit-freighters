@@ -11,11 +11,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
+  document.title = to.meta.title as string || DEFAULT_TITLE;
   const displayStore = useDisplayStore();
   displayStore.UpdateLoaderShowingState(true);
-  setTimeout(() => {
-      
-  }, 150)
+  setTimeout(() => { }, 150)
 })
 
 router.afterEach((to, from) => {
@@ -24,4 +23,5 @@ router.afterEach((to, from) => {
     displayStore.UpdateLoaderShowingState(false);
   }, 150)
 })
+
 export default router;

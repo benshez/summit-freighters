@@ -29,7 +29,10 @@
     "vue": "^3.5.26",
     "vue-router": "^4.6.4",
     "@turf/turf": "^7.3.4",
-    "@fullcalendar/vue3": "^6.1.20"
+    "@fullcalendar/vue3": "^6.1.20",
+    "@fullcalendar/daygrid": "^6.1.20",
+    "@fullcalendar/timegrid": "^6.1.20",
+    "@fullcalendar/interaction": "^6.1.20"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.0",
