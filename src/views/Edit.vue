@@ -4,7 +4,7 @@
       <div class="flex flex-col items-center">
         <div class="relative profile-pic-upload mb-4">
           <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow">
-            <img id="profileImage" :src="currentUser.photoURL" alt="Profile" class="w-full h-full object-cover">
+            <img id="profileImage" :src="userStore?.userInfo?.photoURL!" alt="Profile" class="w-full h-full object-cover">
           </div>
           <div
             class="upload-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 transition-opacity duration-300 cursor-pointer">
@@ -15,7 +15,7 @@
           </div>
         </div>
         <h2>
-          {{ currentUser.displayName }}
+          {{ userStore.userInfo.displayName }}
         </h2>
         <p class="text-sm mb-5">Software Developer</p>
         <button id="changePhotoBtn" class="flex w-full justify-center border p-2 rounded">
@@ -33,7 +33,7 @@
         <template v-slot:footer="elements">
           <div class="mb-6 text-center">
             <div class="mt-6">
-              <button type="button" @click="saveProfile(elements.elements)"
+              <button type="button" @click="SaveProfile(elements.elements)"
                 class="flex w-full justify-center border p-2 rounded">
                 Save Changes
               </button>
@@ -57,30 +57,42 @@
 import { onMounted, ref } from "vue"
 import FormBody from "@/components/Form/FormBody.vue";
 import FormTwoColumnLayout from "@/components/Form/FormTwoColumnLayout.vue";
-import { useUserStore, useFormStore } from "@/store";
+import { useUserStore, useFormStore, useDisplayStore } from "@/store";
 import type { IElement } from "@/interfaces";
 
 const formStore = useFormStore();
-const authStore = useUserStore();
-const currentUser = ref({
-  photoURL: "",
-  displayName: ""
-});
+const userStore = useUserStore();
+const displayStore = useDisplayStore();
 
-const saveProfile = (elements: Array<IElement>) => {
-  // Send profile data to server
-  console.log("Saving profile:", elements)
-  // Show success message
+const SaveProfile = async (elements: Array<IElement>) => {
+  displayStore.UpdateLoaderShowingState(true);
+  let email: string = "";
+  let name: string = "";
+  let password: string = "";
+
+  elements.forEach((element: IElement) => {
+    switch (element.id) {
+      case "email":
+        email = element.isValid ? element.value : "";
+        break;
+      case "name":
+        name = element.isValid ? element.value : "";
+        break;
+      case "password":
+        password = element.isValid ? element.value : "";
+        break;
+    }
+  })
+
+  await userStore.UpdateUserProfile({ displayName: name, photoURL: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" });
+
+  displayStore.UpdateLoaderShowingState(false);
 }
 
 onMounted(async () => {
-  const user = await authStore.GetCurrentUser();
-  formStore.updateElementState("email", { key: "value", value: user?.email });
-  formStore.updateElementState("name", { key: "value", value: user?.displayName });
-  currentUser.value = {
-    photoURL: user?.photoURL || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    displayName: user?.displayName || ""
-  };
+  const user = await userStore.UpdateUserInfo();
+  formStore.updateElementState("email", { key: "value", value: userStore.userInfo.email });
+  formStore.updateElementState("name", { key: "value", value: userStore.userInfo.displayName });
 })
 
 </script>

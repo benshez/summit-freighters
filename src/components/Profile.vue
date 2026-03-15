@@ -1,10 +1,10 @@
 <template>
   <div class="absolute right-0 mt-[16px] m-0 flex w-[260px] flex-col rounded-1xl border">
     <div v-if="userStore && userStore.userInfo">
-      <span class="block font-medium ">
+      <span class="block font-medium pt-2 pr-2 pl-2">
         {{ userStore?.userInfo?.displayName }}
       </span>
-      <span class="mt-0.5 block text-theme-xs">
+      <span class="block pr-2 pl-2">
         {{ userStore?.userInfo?.email }}
       </span>
     </div>

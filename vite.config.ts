@@ -23,6 +23,10 @@ export default defineConfig({
       manifest: false,
       workbox: {
         globPatterns: ["**/*.{js,css,html,png,svg,ico,txt}"],
+        maximumFileSizeToCacheInBytes: 5000000
+      },
+      injectManifest: {
+        maximumFileSizeToCacheInBytes: 5000000
       },
       devOptions: {
         enabled: true,

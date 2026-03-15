@@ -110,9 +110,8 @@ export const useUserStore = defineStore("users", {
 
     async UpdateUserInfo() {
       const user = await this.GetCurrentUser();
-
       if (user) {
-        const userToken = user ? await user.getIdToken() : null;
+        const userToken = user ? await user.getIdTokenResult() : null;
         const authedUser = {
           uid: user.uid,
           displayName: user.displayName || "",
@@ -120,7 +119,7 @@ export const useUserStore = defineStore("users", {
           emailVerified: user.emailVerified,
           isAnonymous: user.isAnonymous,
           phoneNumber: user.phoneNumber || "",
-          photoUrl: user.photoURL || "",
+          photoURL: user.photoURL || "",
           roles: { permission: ["user"], access: ["read", "write"] },
           accessToken: userToken as unknown as string,
         } as unknown as User;
@@ -130,7 +129,6 @@ export const useUserStore = defineStore("users", {
         //configuration.SetAuthorizationBearerToken(userToken as string);
       }
     },
-
     async GetCurrentUser(): Promise<User | null> {
       const auth = useFirebase().auth;
       await auth.authStateReady();
