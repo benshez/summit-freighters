@@ -3,7 +3,7 @@ import { defineStore, } from "pinia";
 export const useDisplayStore = defineStore("auth", {
   state: () => ({
     loaderShowingState: false as boolean,
-    sidebarShowingState: true as boolean,
+    sidebarShowingState: false as boolean,
     menuShowingState: false as  boolean,
     profileListShowingState: false as  boolean,
     darkModeState: false as boolean

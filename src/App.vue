@@ -3,7 +3,7 @@
     <Loading type="circle" class="w-full h-1"></Loading>
     <div class="fixed inset-0 bg-black opacity-50 z-999999 top-1"></div>
   </div>
-  <div class="body" :class="displayStore.darkMode ? 'dark' : ''" @click="OnUpdateDisplay" >
+  <div class="body" :class="displayStore.darkMode ? 'dark' : ''" >
     <div class="flex h-screen overflow-hidden">
       <Sidebar />
       <div class="relative flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
@@ -23,8 +23,4 @@ import Loading from "@/components/Loading.vue";
 
 const displayStore = useDisplayStore();
 
-const OnUpdateDisplay = () => {
-  displayStore.UpdateSidebarShowingState(false);
-  displayStore.UpdateProfileShowingState(false);
-}
 </script>
