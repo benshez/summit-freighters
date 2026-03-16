@@ -4,7 +4,7 @@
     <div class="fixed inset-0 bg-black opacity-50 z-999999 top-1"></div>
   </div>
   <div class="body" :class="displayStore.darkMode ? 'dark' : ''">
-    <div class="dark:bg-gray-900 dark:bg-gray-900 dark:border-gray-800 text-gray-900">
+    <div class="dark:bg-gray-900">
       <div class="flex h-screen overflow-hidden">
         <Sidebar />
         <div class="relative flex flex-1 flex-col overflow-x-hidden overflow-y-auto">

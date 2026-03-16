@@ -185,9 +185,21 @@ layer(base);
     cursor: pointer;
   }
   .body {
-    @apply relative font-normal font-outfit z-1 bg-gray-50;
+    @apply font-normal font-outfit z-1 bg-gray-50;
   }
 
+  .body.dark [class*="border"] {
+    @apply text-gray-500 border-gray-200 dark:border-gray-800 dark:text-gray-400
+  }
+
+  .body.dark .custom-calendar   {
+    @apply dark:bg-gray-dark 
+  }
+
+  /* .body.dark .custom-calendar  td {
+    @apply 
+   }
+z-99999 
   .body.dark * {
     @apply dark:!fill-white dark:!text-white;
     @apply dark:!bg-gray-900 dark:!border-gray-800 !text-gray-900
@@ -237,12 +249,13 @@ layer(base);
   
   .body.dark .custom-calendar .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child .fc-button {
     border-radius: var(--radius-md);
-    @apply dark:!bg-gray-900; 
+    @apply dark:!bg-gray-900 dark:!border-gray-800; 
   }
 
   .body.dark .custom-calendar .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child .fc-button-active {
     @apply text-gray-900 bg-white dark:!bg-gray-800 dark:text-white;
   }
+*/
 
 } 
 

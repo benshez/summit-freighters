@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute right-0 mt-[16px] m-0 flex w-[260px] flex-col rounded-1xl border">
+  <div class="absolute right-0 mt-[16px] m-0 flex w-[260px] flex-col rounded-1xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark rounded-2xl">
     <div v-if="userStore && userStore.userInfo">
       <span class="block font-medium pt-2 pr-2 pl-2">
         {{ userStore?.userInfo?.displayName }}
