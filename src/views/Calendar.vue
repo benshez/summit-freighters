@@ -135,13 +135,19 @@ const handleAddOrUpdateEvent = () => {
     // Update existing event
     events.value = events.value.map((event: IEvent) => {
       if (event.id === selectedEvent?.value?.id) {
-        const start = new Date(event.start as string);
-        const end = new Date(event.end as string);
+        let start = eventStartDate.value
+        if(start) {
+          start = DateTime.fromSQL(start).setZone("Australia/Brisbane").toISO()?.split("T")[0]
+        }
+        let end = eventEndDate.value
+        if (end) {
+          end = DateTime.fromSQL(end).setZone("Australia/Brisbane").toISO()?.split("T")[0]
+        }
         return {
           ...event,
           title: eventTitle.value,
-          start: DateTime.local(start.getFullYear(), start.getMonth() + 1, start.getDate()).setZone("Australia/Brisbane").toISO()?.split("T")[0] as string,
-          end: DateTime.local(end.getFullYear(), end.getMonth() + 1, end.getDate()).setZone("Australia/Brisbane").toISO()?.split("T")[0] as string,
+          start: start as string,
+          end: end as string,
           extendedProps: { calendar: eventLevel.value },
         }
       } else {
